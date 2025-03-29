@@ -211,6 +211,7 @@ body {
   margin-top: 0;
   padding-top: 0.75rem;
   max-height: calc(100vh - 70px);
+  overflow-x: hidden;
 }
 
 .titleSection {
@@ -534,6 +535,99 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
+}
+
+/* Add pulse animation keyframes */
+@keyframes buttonPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4), 0 0 5px rgba(76, 175, 80, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+  }
+}
+
+.predictButton {
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.9), rgba(25, 25, 25, 0.8));
+  color: white;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-self: center;
+  position: relative;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+  min-width: 140px;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  animation: buttonPulse 2s infinite ease-in-out;
+}
+
+.predictButton:hover {
+  background: linear-gradient(145deg, rgba(25, 25, 25, 0.95), rgba(30, 30, 30, 0.85));
+  border-color: rgba(76, 175, 80, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 15px rgba(76, 175, 80, 0.3),
+    0 0 8px rgba(76, 175, 80, 0.5);
+  animation: none;
+}
+
+.predictButton:disabled {
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.7), rgba(20, 20, 20, 0.6));
+  border-color: rgba(76, 175, 80, 0.15);
+  cursor: wait;
+  transform: none;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.1);
+  opacity: 0.85;
+  animation: buttonPulse 1.5s infinite ease-in-out;
+}
+
+.errorMessage {
+  color: #ff5252;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255, 82, 82, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 82, 82, 0.3);
+}
+
+.predictionResult {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.predictionTitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+}
+
+.predictionName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4caf50;
+  word-wrap: break-word;
+}
+
+.predictionConfidence {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 1200px) {
@@ -879,5 +973,166 @@ body {
   .contactItem,
   .pricingItem {
     padding: 1rem;
+  }
+}
+
+/* Yield Prediction Styles */
+.yieldPredictionSection {
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.5s ease;
+  position: relative;
+}
+
+.yieldPredictionSection .sectionCard {
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.yieldPredictionSection .sectionTitle {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.yieldPredictionSection .sectionTitle h3 {
+  background: linear-gradient(to right, #4caf50, #8bc34a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.yieldForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0.75rem 0;
+}
+
+.formRow {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 140px;
+  margin-bottom: 0.4rem;
+}
+
+.formGroup label {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.formSelect, .formInput {
+  padding: 0.5rem;
+  background: linear-gradient(145deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.8));
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  height: 2.5rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.formSelect:focus, .formInput:focus {
+  border-color: rgba(76, 175, 80, 0.8);
+  outline: none;
+  box-shadow: 
+    inset 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 0 0 2px rgba(76, 175, 80, 0.2);
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.85));
+}
+
+.formSelect:hover, .formInput:hover {
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.formSelect option {
+  background-color: #121212;
+  color: white;
+}
+
+.predictionResults {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(10, 10, 10, 0.7);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.resultsTitle {
+  font-size: 0.95rem;
+  background: linear-gradient(to right, #4caf50, #8bc34a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.tableHeader {
+  display: flex;
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.tableRow {
+  display: flex;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.tableRow:hover {
+  background: rgba(76, 175, 80, 0.05);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.tableCell:first-child {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .predictionResults {
+    padding: 1rem;
+  }
+  
+  .tableCell {
+    font-size: 0.9rem;
   }
 } 

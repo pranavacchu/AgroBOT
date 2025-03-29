@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Dashboard.module.css';
-import { Map, Users, ShoppingBag, Activity, Upload, Image, MessageCircle, X, ChevronLeft, Mail, Phone, User } from 'lucide-react';
+import { Map, Users, ShoppingBag, Activity, Upload, Image, MessageCircle, X, ChevronLeft, Mail, Phone, User, LineChart, BarChart } from 'lucide-react';
 import Modal from './Modal';
 import { RiProductHuntLine } from "react-icons/ri";
 import { IoMdOptions } from "react-icons/io";
@@ -13,6 +13,28 @@ export default function Dashboard() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [chatbotOpen, setChatbotOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
+  const [prediction, setPrediction] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [yieldPredForm, setYieldPredForm] = useState({
+    crop: '',
+    state: '',
+    season: '',
+    annual_rainfall: 500,
+    fertilizer: 100,
+    pesticide: 50,
+    production: 1000,
+    area: 200,
+    forecast_years: 3
+  });
+  const [yieldPredictions, setYieldPredictions] = useState(null);
+  const [yieldLoading, setYieldLoading] = useState(false);
+  const [yieldError, setYieldError] = useState(null);
+
+  const crops = ["Rice", "Wheat", "Maize", "Cotton", "Sugarcane", "Jute", "Coffee", "Coconut", "Groundnut"];
+  const states = ["Andhra Pradesh", "Assam", "Bihar", "Gujarat", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Odisha", "Punjab", "Tamil Nadu", "Uttar Pradesh", "West Bengal"];
+  const seasons = ["Kharif", "Rabi", "Whole Year", "Autumn", "Summer", "Winter"];
 
   const modalContents = {
     product: {
@@ -138,7 +160,6 @@ export default function Dashboard() {
   ];
 
   const sections = [
-    { title: 'Top locations', content: 'No locations', icon: <Map size={20} /> },
     { title: 'Customers', content: 'No customers', icon: <Users size={20} /> },
     { title: 'Top products', content: 'No products', icon: <ShoppingBag size={20} /> }
   ];
@@ -152,6 +173,120 @@ export default function Dashboard() {
         setPreviewUrl(fileReader.result);
       };
       fileReader.readAsDataURL(file);
+      // Reset prediction when new file is selected
+      setPrediction(null);
+      setError(null);
+    }
+  };
+
+  const handleYieldInputChange = (e) => {
+    const { name, value } = e.target;
+    // Convert numeric values
+    const numericFields = ['annual_rainfall', 'fertilizer', 'pesticide', 'production', 'area', 'forecast_years'];
+    const newValue = numericFields.includes(name) ? parseFloat(value) : value;
+    
+    setYieldPredForm({
+      ...yieldPredForm,
+      [name]: newValue
+    });
+  };
+
+  const handleYieldPredict = async (e) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!yieldPredForm.crop || !yieldPredForm.state || !yieldPredForm.season) {
+      setYieldError("Please fill all required fields");
+      return;
+    }
+
+    setYieldLoading(true);
+    setYieldError(null);
+    setYieldPredictions(null); // Clear previous predictions
+
+    try {
+      console.log("Sending yield prediction request:", yieldPredForm);
+      const response = await fetch('http://localhost:8000/predict-yield/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          crop: yieldPredForm.crop,
+          state: yieldPredForm.state,
+          season: yieldPredForm.season,
+          annual_rainfall: yieldPredForm.annual_rainfall,
+          fertilizer: yieldPredForm.fertilizer,
+          pesticide: yieldPredForm.pesticide,
+          production: yieldPredForm.production,
+          area: yieldPredForm.area,
+          forecast_years: yieldPredForm.forecast_years
+        }),
+      });
+
+      console.log("Response status:", response.status);
+      
+      const result = await response.json();
+      console.log("Yield prediction result:", result);
+      
+      if (!response.ok) {
+        throw new Error(result.detail || `Server error: ${response.status}`);
+      }
+
+      if (!result.success) {
+        throw new Error(result.detail || "Prediction failed");
+      }
+      
+      setYieldPredictions(result);
+    } catch (error) {
+      console.error("Error predicting yield:", error);
+      setYieldError(error.message || "Failed to predict crop yield. Please try again.");
+    } finally {
+      setYieldLoading(false);
+    }
+  };
+
+  const handlePredict = async () => {
+    if (!selectedFile) {
+      setError("Please select an image first");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      console.log("Sending prediction request...");
+      const response = await fetch('http://localhost:8000/predict/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      console.log("Response status:", response.status);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({
+          detail: `Server error: ${response.status} ${response.statusText}`
+        }));
+        throw new Error(errorData.detail || "Failed to get prediction from server");
+      }
+
+      const result = await response.json();
+      console.log("Prediction result:", result);
+      
+      if (!result.success) {
+        throw new Error(result.detail || "Prediction failed");
+      }
+      
+      setPrediction(result);
+    } catch (error) {
+      console.error("Error predicting disease:", error);
+      setError(error.message || "Failed to predict disease. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -245,7 +380,221 @@ export default function Dashboard() {
                 {selectedFile && (
                   <div className={styles.fileName}>{selectedFile.name}</div>
                 )}
+                
+                {selectedFile && (
+                  <button 
+                    type="button" 
+                    className={styles.predictButton}
+                    onClick={handlePredict}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Analyzing...' : 'Analyze Plant'}
+                  </button>
+                )}
+                
+                {error && (
+                  <div className={styles.errorMessage}>{error}</div>
+                )}
+                
+                {prediction && (
+                  <div className={styles.predictionResult}>
+                    <div className={styles.predictionTitle}>Plant Analysis Result:</div>
+                    <div className={styles.predictionName}>
+                      {prediction.prediction.replace(/_/g, ' ').replace(/___/g, ' - ')}
+                    </div>
+                    <div className={styles.predictionConfidence}>
+                      Confidence: {(prediction.confidence * 100).toFixed(1)}%
+                    </div>
+                  </div>
+                )}
               </form>
+            </div>
+          </div>
+
+          <div className={styles.yieldPredictionSection}>
+            <div className={styles.sectionCard}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.sectionTitle}>
+                  <LineChart size={20} />
+                  <h3>Yield Prediction</h3>
+                </div>
+              </div>
+              
+              <form className={styles.yieldForm} onSubmit={handleYieldPredict}>
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="crop">Crop *</label>
+                    <select 
+                      id="crop" 
+                      name="crop" 
+                      value={yieldPredForm.crop}
+                      onChange={handleYieldInputChange}
+                      required
+                      className={styles.formSelect}
+                    >
+                      <option value="">Select Crop</option>
+                      {crops.map(crop => (
+                        <option key={crop} value={crop}>{crop}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="state">State *</label>
+                    <select 
+                      id="state" 
+                      name="state" 
+                      value={yieldPredForm.state}
+                      onChange={handleYieldInputChange}
+                      required
+                      className={styles.formSelect}
+                    >
+                      <option value="">Select State</option>
+                      {states.map(state => (
+                        <option key={state} value={state}>{state}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="season">Season *</label>
+                    <select 
+                      id="season" 
+                      name="season" 
+                      value={yieldPredForm.season}
+                      onChange={handleYieldInputChange}
+                      required
+                      className={styles.formSelect}
+                    >
+                      <option value="">Select Season</option>
+                      {seasons.map(season => (
+                        <option key={season} value={season}>{season}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="annual_rainfall">Annual Rainfall (mm)</label>
+                    <input 
+                      type="number" 
+                      id="annual_rainfall" 
+                      name="annual_rainfall" 
+                      value={yieldPredForm.annual_rainfall}
+                      onChange={handleYieldInputChange}
+                      min="0"
+                      step="0.01"
+                      className={styles.formInput}
+                    />
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="fertilizer">Fertilizer (kg/ha)</label>
+                    <input 
+                      type="number" 
+                      id="fertilizer" 
+                      name="fertilizer" 
+                      value={yieldPredForm.fertilizer}
+                      onChange={handleYieldInputChange}
+                      min="0"
+                      step="0.01"
+                      className={styles.formInput}
+                    />
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="pesticide">Pesticide (kg/ha)</label>
+                    <input 
+                      type="number" 
+                      id="pesticide" 
+                      name="pesticide" 
+                      value={yieldPredForm.pesticide}
+                      onChange={handleYieldInputChange}
+                      min="0"
+                      step="0.01"
+                      className={styles.formInput}
+                    />
+                  </div>
+                </div>
+                
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="production">Production (tonnes)</label>
+                    <input 
+                      type="number" 
+                      id="production" 
+                      name="production" 
+                      value={yieldPredForm.production}
+                      onChange={handleYieldInputChange}
+                      min="0"
+                      step="0.01"
+                      className={styles.formInput}
+                    />
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="area">Area (hectares)</label>
+                    <input 
+                      type="number" 
+                      id="area" 
+                      name="area" 
+                      value={yieldPredForm.area}
+                      onChange={handleYieldInputChange}
+                      min="0"
+                      step="0.01"
+                      className={styles.formInput}
+                    />
+                  </div>
+                  
+                  <div className={styles.formGroup}>
+                    <label htmlFor="forecast_years">Forecast Years</label>
+                    <input 
+                      type="number" 
+                      id="forecast_years" 
+                      name="forecast_years" 
+                      value={yieldPredForm.forecast_years}
+                      onChange={handleYieldInputChange}
+                      min="1"
+                      max="10"
+                      className={styles.formInput}
+                    />
+                  </div>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  className={styles.predictButton}
+                  disabled={yieldLoading}
+                >
+                  {yieldLoading ? 'Processing...' : 'Predict Yield'}
+                </button>
+                
+                {yieldError && (
+                  <div className={styles.errorMessage}>{yieldError}</div>
+                )}
+              </form>
+              
+              {yieldPredictions && (
+                <div className={styles.predictionResults}>
+                  <h4 className={styles.resultsTitle}>
+                    Yield Predictions for {yieldPredictions.crop} in {yieldPredictions.state}
+                  </h4>
+                  
+                  <div className={styles.resultsTable}>
+                    <div className={styles.tableHeader}>
+                      <div className={styles.tableCell}>Year</div>
+                      <div className={styles.tableCell}>Predicted Yield (kg/ha)</div>
+                    </div>
+                    {yieldPredictions.predictions.map(pred => (
+                      <div key={pred.year} className={styles.tableRow}>
+                        <div className={styles.tableCell}>{pred.year}</div>
+                        <div className={styles.tableCell}>{pred.yield.toFixed(2)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

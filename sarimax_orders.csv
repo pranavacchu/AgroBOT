@@ -1,0 +1,876 @@
+Crop,State,p,d,q,P,D,Q,s
+Arecanut,Assam,1,5,1,0,0,0,0
+Banana,Gujarat,3,3,3,0,0,0,0
+Bajra,Gujarat,3,1,2,0,0,0,0
+Arhar/Tur,Gujarat,2,1,3,0,0,0,0
+Wheat,Bihar,2,1,2,0,0,0,0
+Turmeric,Bihar,1,0,1,0,0,0,0
+Tobacco,Bihar,3,0,3,0,0,0,0
+Sweet potato,Bihar,2,1,1,0,0,0,0
+Sunflower,Bihar,3,4,2,0,0,0,0
+Sugarcane,Bihar,3,1,3,0,0,0,0
+Small millets,Bihar,1,1,1,0,0,0,0
+Sesamum,Bihar,3,0,3,0,0,0,0
+Sannhamp,Bihar,1,1,1,0,0,0,0
+Safflower,Bihar,2,1,2,0,0,0,0
+Rice,Bihar,3,1,3,0,0,0,0
+Jowar,Bihar,2,1,2,0,0,0,0
+Jute,Bihar,3,2,3,0,0,0,0
+Linseed,Bihar,3,1,3,0,0,0,0
+Maize,Bihar,3,1,3,0,0,0,0
+Castor seed,Gujarat,1,0,1,0,0,0,0
+Mesta,Bihar,1,0,1,0,0,0,0
+Onion,Bihar,2,1,1,0,0,0,0
+Other  Rabi pulses,Bihar,3,1,3,0,0,0,0
+Other Kharif pulses,Bihar,3,0,3,0,0,0,0
+Potato,Bihar,3,1,3,0,0,0,0
+Ragi,Bihar,2,1,2,0,0,0,0
+Rapeseed &Mustard,Bihar,3,1,3,0,0,0,0
+Groundnut,Bihar,3,1,3,0,0,0,0
+Dry chillies,Gujarat,1,1,1,0,0,0,0
+Maize,Madhya Pradesh,3,0,3,0,0,0,0
+Linseed,Madhya Pradesh,3,3,2,0,0,0,0
+Jowar,Madhya Pradesh,3,4,3,0,0,0,0
+Groundnut,Madhya Pradesh,3,1,3,0,0,0,0
+Cotton(lint),Madhya Pradesh,2,4,2,0,0,0,0
+Barley,Madhya Pradesh,2,3,2,0,0,0,0
+Bajra,Madhya Pradesh,3,4,3,0,0,0,0
+Arhar/Tur,Madhya Pradesh,3,2,2,0,0,0,0
+Wheat,Gujarat,3,2,3,0,0,0,0
+Urad,Gujarat,3,1,2,0,0,0,0
+Tobacco,Gujarat,2,0,2,0,0,0,0
+Sugarcane,Gujarat,1,0,1,0,0,0,0
+Small millets,Gujarat,3,3,3,0,0,0,0
+Sesamum,Gujarat,1,0,1,0,0,0,0
+Rice,Gujarat,3,0,2,0,0,0,0
+Rapeseed &Mustard,Gujarat,3,2,3,0,0,0,0
+Garlic,Gujarat,2,3,1,0,0,0,0
+Gram,Gujarat,2,1,3,0,0,0,0
+Groundnut,Gujarat,3,1,3,0,0,0,0
+Jowar,Gujarat,3,1,3,0,0,0,0
+Cotton(lint),Gujarat,2,1,3,0,0,0,0
+Maize,Gujarat,3,1,3,0,0,0,0
+Moth,Gujarat,1,0,1,0,0,0,0
+Onion,Gujarat,2,0,2,0,0,0,0
+Other  Rabi pulses,Gujarat,2,4,1,0,0,0,0
+Other Kharif pulses,Gujarat,3,0,2,0,0,0,0
+Potato,Gujarat,2,1,2,0,0,0,0
+Ragi,Gujarat,3,1,1,0,0,0,0
+Moong(Green Gram),Gujarat,2,1,2,0,0,0,0
+Rapeseed &Mustard,Madhya Pradesh,2,0,3,0,0,0,0
+Gram,Bihar,3,1,1,0,0,0,0
+Garlic,Bihar,2,0,2,0,0,0,0
+Groundnut,Andhra Pradesh,3,1,3,0,0,0,0
+Gram,Andhra Pradesh,1,0,1,0,0,0,0
+Dry chillies,Andhra Pradesh,3,1,3,0,0,0,0
+Cotton(lint),Andhra Pradesh,2,0,1,0,0,0,0
+Castor seed,Andhra Pradesh,3,1,3,0,0,0,0
+Bajra,Andhra Pradesh,3,1,3,0,0,0,0
+Arhar/Tur,Andhra Pradesh,3,0,3,0,0,0,0
+Wheat,Odisha,1,1,1,0,0,0,0
+Urad,Odisha,3,1,3,0,0,0,0
+Sugarcane,Odisha,3,1,2,0,0,0,0
+Sesamum,Odisha,3,1,3,0,0,0,0
+Arhar/Tur,Odisha,1,1,1,0,0,0,0
+Groundnut,Odisha,3,1,3,0,0,0,0
+Horse-gram,Odisha,1,1,2,0,0,0,0
+Jute,Odisha,2,5,3,0,0,0,0
+Maize,Odisha,3,1,3,0,0,0,0
+Potato,Odisha,3,2,3,0,0,0,0
+Ragi,Odisha,3,1,3,0,0,0,0
+Ginger,Bihar,3,2,3,0,0,0,0
+Horse-gram,Andhra Pradesh,3,1,2,0,0,0,0
+Jowar,Andhra Pradesh,3,1,3,0,0,0,0
+Dry chillies,Bihar,2,2,1,0,0,0,0
+Coriander,Bihar,3,1,3,0,0,0,0
+Castor seed,Bihar,2,2,1,0,0,0,0
+Barley,Bihar,3,2,2,0,0,0,0
+Banana,Bihar,1,3,1,0,0,0,0
+Bajra,Bihar,3,0,3,0,0,0,0
+Arhar/Tur,Bihar,3,0,3,0,0,0,0
+Wheat,Andhra Pradesh,3,0,1,0,0,0,0
+Urad,Andhra Pradesh,3,1,3,0,0,0,0
+Tobacco,Andhra Pradesh,1,0,1,0,0,0,0
+Sunflower,Andhra Pradesh,1,0,1,0,0,0,0
+Sugarcane,Andhra Pradesh,1,3,1,0,0,0,0
+Small millets,Andhra Pradesh,3,1,3,0,0,0,0
+Maize,Andhra Pradesh,3,1,3,0,0,0,0
+Mesta,Andhra Pradesh,2,1,1,0,0,0,0
+Moong(Green Gram),Andhra Pradesh,3,1,3,0,0,0,0
+Other  Rabi pulses,Andhra Pradesh,2,1,2,0,0,0,0
+Ragi,Andhra Pradesh,3,0,2,0,0,0,0
+Rice,Andhra Pradesh,3,1,3,0,0,0,0
+Sesamum,Andhra Pradesh,3,0,1,0,0,0,0
+Other Kharif pulses,Andhra Pradesh,3,1,2,0,0,0,0
+Sesamum,Madhya Pradesh,3,0,3,0,0,0,0
+Small millets,Madhya Pradesh,2,1,3,0,0,0,0
+Soyabean,Madhya Pradesh,3,0,2,0,0,0,0
+Onion,Manipur,1,1,1,0,0,0,0
+Maize,Manipur,3,0,1,0,0,0,0
+Dry chillies,Manipur,3,1,3,0,0,0,0
+Banana,Manipur,3,2,2,0,0,0,0
+Rice,Nagaland,3,1,3,0,0,0,0
+Maize,Nagaland,3,0,2,0,0,0,0
+Jowar,Nagaland,3,1,1,0,0,0,0
+Bajra,Nagaland,1,0,2,0,0,0,0
+Wheat,Haryana,3,4,2,0,0,0,0
+Sugarcane,Haryana,2,1,2,0,0,0,0
+Rice,Haryana,3,1,2,0,0,0,0
+Other Kharif pulses,Haryana,1,0,1,0,0,0,0
+Maize,Haryana,3,1,3,0,0,0,0
+Jowar,Haryana,3,4,3,0,0,0,0
+Gram,Haryana,2,3,3,0,0,0,0
+Sesamum,Uttar Pradesh,3,3,1,0,0,0,0
+Small millets,Uttar Pradesh,3,1,2,0,0,0,0
+Soyabean,Uttar Pradesh,3,1,1,0,0,0,0
+Sugarcane,Uttar Pradesh,2,1,3,0,0,0,0
+Sunflower,Uttar Pradesh,3,0,1,0,0,0,0
+Other Kharif pulses,Manipur,3,1,3,0,0,0,0
+Urad,Uttar Pradesh,3,1,3,0,0,0,0
+Wheat,Uttar Pradesh,2,3,2,0,0,0,0
+Rice,Jammu and Kashmir,1,0,1,0,0,0,0
+Bajra,Haryana,3,1,3,0,0,0,0
+Barley,Haryana,3,1,3,0,0,0,0
+Cotton(lint),Haryana,3,2,3,0,0,0,0
+Rice,Uttar Pradesh,3,1,3,0,0,0,0
+Peas & beans (Pulses),Manipur,3,1,3,0,0,0,0
+Soyabean,Manipur,3,3,3,0,0,0,0
+Maize,Jammu and Kashmir,2,2,1,0,0,0,0
+Wheat,Arunachal Pradesh,3,3,3,0,0,0,0
+Sunflower,Arunachal Pradesh,1,0,1,0,0,0,0
+Sugarcane,Arunachal Pradesh,3,1,3,0,0,0,0
+Soyabean,Arunachal Pradesh,1,2,1,0,0,0,0
+Small millets,Arunachal Pradesh,3,1,2,0,0,0,0
+Sesamum,Arunachal Pradesh,1,0,1,0,0,0,0
+Rice,Arunachal Pradesh,3,1,3,0,0,0,0
+Rapeseed &Mustard,Arunachal Pradesh,1,2,1,0,0,0,0
+Oilseeds total,Arunachal Pradesh,1,0,1,0,0,0,0
+Maize,Arunachal Pradesh,3,1,3,0,0,0,0
+Groundnut,Arunachal Pradesh,1,0,1,0,0,0,0
+Rice,Goa,2,0,1,0,0,0,0
+Ragi,Goa,3,0,2,0,0,0,0
+Other Kharif pulses,Goa,1,4,1,0,0,0,0
+Other  Rabi pulses,Goa,2,1,1,0,0,0,0
+Sugarcane,Manipur,2,0,3,0,0,0,0
+Turmeric,Manipur,3,1,3,0,0,0,0
+Barley,Sikkim,1,2,1,0,0,0,0
+Maize,Sikkim,3,0,1,0,0,0,0
+Rice,Manipur,2,0,1,0,0,0,0
+Rapeseed &Mustard,Sikkim,3,4,2,0,0,0,0
+Small millets,Sikkim,1,2,1,0,0,0,0
+Soyabean,Sikkim,3,4,2,0,0,0,0
+Urad,Sikkim,1,0,1,0,0,0,0
+Wheat,Sikkim,1,0,1,0,0,0,0
+Groundnut,Goa,3,1,3,0,0,0,0
+Rice,Sikkim,3,0,2,0,0,0,0
+Rapeseed &Mustard,Uttar Pradesh,2,2,2,0,0,0,0
+Potato,Uttar Pradesh,1,0,1,0,0,0,0
+Soyabean,Mizoram,2,1,1,0,0,0,0
+Sesamum,Mizoram,3,1,2,0,0,0,0
+Rice,Mizoram,3,0,1,0,0,0,0
+Rapeseed &Mustard,Mizoram,3,0,1,0,0,0,0
+Peas & beans (Pulses),Mizoram,1,1,1,0,0,0,0
+Maize,Mizoram,2,0,1,0,0,0,0
+Arhar/Tur,Mizoram,1,4,1,0,0,0,0
+Wheat,Maharashtra,1,0,1,0,0,0,0
+Urad,Maharashtra,1,4,1,0,0,0,0
+Sugarcane,Maharashtra,1,0,1,0,0,0,0
+Rice,Maharashtra,1,1,1,0,0,0,0
+Ragi,Maharashtra,1,0,1,0,0,0,0
+Sunflower,Madhya Pradesh,3,4,3,0,0,0,0
+Wheat,Madhya Pradesh,3,4,3,0,0,0,0
+Arhar/Tur,Maharashtra,1,1,1,0,0,0,0
+Bajra,Maharashtra,2,3,1,0,0,0,0
+Cotton(lint),Maharashtra,1,3,1,0,0,0,0
+Gram,Maharashtra,3,1,3,0,0,0,0
+Sugarcane,Mizoram,3,1,2,0,0,0,0
+Jowar,Maharashtra,3,0,1,0,0,0,0
+Maize,Maharashtra,1,0,1,0,0,0,0
+Moong(Green Gram),Maharashtra,1,0,1,0,0,0,0
+Other  Rabi pulses,Maharashtra,1,0,1,0,0,0,0
+Tapioca,Mizoram,1,1,1,0,0,0,0
+Tobacco,Mizoram,1,1,1,0,0,0,0
+Barley,Uttar Pradesh,3,4,2,0,0,0,0
+Gram,Uttar Pradesh,3,3,3,0,0,0,0
+Groundnut,Uttar Pradesh,2,5,2,0,0,0,0
+Jowar,Uttar Pradesh,3,1,1,0,0,0,0
+Linseed,Uttar Pradesh,2,2,1,0,0,0,0
+Bajra,Uttar Pradesh,3,8,3,0,0,0,0
+Maize,Uttar Pradesh,1,0,1,0,0,0,0
+Masoor,Uttar Pradesh,2,1,1,0,0,0,0
+Moong(Green Gram),Uttar Pradesh,3,1,2,0,0,0,0
+Moth,Uttar Pradesh,1,0,1,0,0,0,0
+Onion,Uttar Pradesh,2,0,1,0,0,0,0
+Peas & beans (Pulses),Uttar Pradesh,2,4,1,0,0,0,0
+Arhar/Tur,Uttar Pradesh,3,2,2,0,0,0,0
+Urad,Punjab,3,2,1,0,0,0,0
+Arhar/Tur,Punjab,1,0,1,0,0,0,0
+Bajra,Punjab,3,0,2,0,0,0,0
+Barley,Punjab,3,1,3,0,0,0,0
+Cotton(lint),Punjab,2,2,2,0,0,0,0
+Gram,Punjab,3,1,3,0,0,0,0
+Wheat,Punjab,2,1,2,0,0,0,0
+Groundnut,Punjab,3,1,3,0,0,0,0
+Masoor,Punjab,3,2,1,0,0,0,0
+Moong(Green Gram),Punjab,3,1,3,0,0,0,0
+Rapeseed &Mustard,Punjab,3,3,3,0,0,0,0
+Rice,Punjab,3,0,3,0,0,0,0
+Sesamum,Punjab,2,0,2,0,0,0,0
+Sugarcane,Punjab,1,0,1,0,0,0,0
+Maize,Punjab,3,0,3,0,0,0,0
+Wheat,Jammu and Kashmir,2,1,1,0,0,0,0
+Arhar/Tur,Assam,3,4,3,0,0,0,0
+Black pepper,Kerala,2,1,3,0,0,0,0
+Cashewnut,Kerala,3,1,3,0,0,0,0
+Coconut ,Kerala,3,2,3,0,0,0,0
+Tapioca,Kerala,3,3,3,0,0,0,0
+Arecanut,Meghalaya,2,2,3,0,0,0,0
+Arhar/Tur,Meghalaya,3,1,3,0,0,0,0
+Banana,Meghalaya,2,2,3,0,0,0,0
+Castor seed,Meghalaya,3,2,3,0,0,0,0
+Cotton(lint),Meghalaya,3,1,3,0,0,0,0
+Dry chillies,Meghalaya,3,0,3,0,0,0,0
+Ginger,Meghalaya,3,1,3,0,0,0,0
+Gram,Meghalaya,3,2,3,0,0,0,0
+Jute,Meghalaya,3,4,3,0,0,0,0
+Linseed,Meghalaya,2,2,3,0,0,0,0
+Maize,Meghalaya,3,4,3,0,0,0,0
+Mesta,Meghalaya,3,0,2,0,0,0,0
+Other  Rabi pulses,Meghalaya,1,0,1,0,0,0,0
+Potato,Meghalaya,3,0,1,0,0,0,0
+Rapeseed &Mustard,Meghalaya,3,2,3,0,0,0,0
+Rice,Meghalaya,3,1,3,0,0,0,0
+Arecanut,Kerala,1,3,1,0,0,0,0
+Sesamum,Meghalaya,3,1,3,0,0,0,0
+Wheat,Karnataka,3,2,1,0,0,0,0
+Sugarcane,Karnataka,1,1,1,0,0,0,0
+Cardamom,Karnataka,3,3,3,0,0,0,0
+Coriander,Karnataka,2,1,2,0,0,0,0
+Dry chillies,Karnataka,3,1,3,0,0,0,0
+Garlic,Karnataka,2,1,1,0,0,0,0
+Ginger,Karnataka,2,1,2,0,0,0,0
+Groundnut,Karnataka,3,1,3,0,0,0,0
+Horse-gram,Karnataka,1,0,1,0,0,0,0
+Jowar,Karnataka,3,0,1,0,0,0,0
+Maize,Karnataka,2,1,3,0,0,0,0
+Ragi,Karnataka,3,0,3,0,0,0,0
+Rice,Karnataka,2,0,2,0,0,0,0
+Turmeric,Karnataka,3,0,1,0,0,0,0
+Small millets,Meghalaya,2,1,3,0,0,0,0
+Soyabean,Meghalaya,3,1,3,0,0,0,0
+Sugarcane,Meghalaya,3,1,3,0,0,0,0
+Moong(Green Gram),West Bengal,3,1,3,0,0,0,0
+Niger seed,West Bengal,1,1,1,0,0,0,0
+Other Kharif pulses,West Bengal,3,0,1,0,0,0,0
+Potato,West Bengal,3,0,3,0,0,0,0
+Ragi,West Bengal,2,1,2,0,0,0,0
+Rapeseed &Mustard,West Bengal,3,1,2,0,0,0,0
+Rice,West Bengal,3,1,3,0,0,0,0
+Safflower,West Bengal,1,1,1,0,0,0,0
+Sannhamp,West Bengal,3,0,1,0,0,0,0
+Sesamum,West Bengal,3,0,1,0,0,0,0
+Small millets,West Bengal,3,0,2,0,0,0,0
+Soyabean,West Bengal,1,2,1,0,0,0,0
+Sugarcane,West Bengal,3,3,2,0,0,0,0
+Sunflower,West Bengal,1,0,1,0,0,0,0
+Turmeric,West Bengal,3,1,2,0,0,0,0
+Urad,West Bengal,2,1,1,0,0,0,0
+Wheat,West Bengal,3,4,2,0,0,0,0
+Mesta,West Bengal,1,0,1,0,0,0,0
+Masoor,West Bengal,3,1,2,0,0,0,0
+Sweet potato,Meghalaya,3,1,3,0,0,0,0
+Tapioca,Meghalaya,3,1,3,0,0,0,0
+Tobacco,Meghalaya,3,1,3,0,0,0,0
+Turmeric,Meghalaya,3,0,1,0,0,0,0
+Wheat,Meghalaya,3,2,3,0,0,0,0
+Arecanut,West Bengal,2,1,1,0,0,0,0
+Arhar/Tur,West Bengal,3,1,1,0,0,0,0
+Bajra,West Bengal,3,2,2,0,0,0,0
+Barley,West Bengal,2,2,2,0,0,0,0
+Cardamom,West Bengal,1,1,1,0,0,0,0
+Black pepper,Karnataka,3,1,2,0,0,0,0
+Castor seed,West Bengal,1,2,1,0,0,0,0
+Cotton(lint),West Bengal,2,0,1,0,0,0,0
+Dry chillies,West Bengal,1,1,1,0,0,0,0
+Gram,West Bengal,3,3,3,0,0,0,0
+Groundnut,West Bengal,3,1,3,0,0,0,0
+Horse-gram,West Bengal,3,2,2,0,0,0,0
+Jowar,West Bengal,1,3,1,0,0,0,0
+Jute,West Bengal,1,2,1,0,0,0,0
+Khesari,West Bengal,3,2,1,0,0,0,0
+Linseed,West Bengal,1,1,1,0,0,0,0
+Maize,West Bengal,3,1,3,0,0,0,0
+Coconut ,West Bengal,2,0,1,0,0,0,0
+Bajra,Karnataka,1,0,1,0,0,0,0
+Tapioca,Assam,3,1,3,0,0,0,0
+Mesta,Assam,3,2,3,0,0,0,0
+Maize,Assam,3,4,3,0,0,0,0
+Linseed,Assam,2,2,3,0,0,0,0
+Jute,Assam,1,0,1,0,0,0,0
+Gram,Assam,2,4,3,0,0,0,0
+Sugarcane,Assam,1,0,1,0,0,0,0
+Cotton(lint),Assam,3,1,3,0,0,0,0
+Coconut ,Assam,3,0,2,0,0,0,0
+Castor seed,Assam,2,3,3,0,0,0,0
+Small millets,Assam,1,0,1,0,0,0,0
+Arhar/Tur,Karnataka,2,3,1,0,0,0,0
+Arecanut,Karnataka,3,0,3,0,0,0,0
+Wheat,Assam,2,4,1,0,0,0,0
+Turmeric,Assam,2,3,3,0,0,0,0
+Tobacco,Assam,2,0,1,0,0,0,0
+Sweet potato,Assam,3,0,3,0,0,0,0
+Niger seed,Assam,1,0,1,0,0,0,0
+Onion,Assam,3,0,3,0,0,0,0
+Dry chillies,Assam,2,1,3,0,0,0,0
+Potato,Assam,2,0,1,0,0,0,0
+Rapeseed &Mustard,Assam,3,2,3,0,0,0,0
+Rice,Assam,2,1,3,0,0,0,0
+Sesamum,Assam,3,4,3,0,0,0,0
+Other  Rabi pulses,Assam,2,1,2,0,0,0,0
+Onion,Haryana,1,0,1,0,0,0,0
+Peas & beans (Pulses),Haryana,3,2,3,0,0,0,0
+Potato,Haryana,1,1,1,0,0,0,0
+Moth,Haryana,3,1,2,0,0,0,0
+Rapeseed &Mustard,Haryana,3,1,2,0,0,0,0
+Moong(Green Gram),Haryana,3,1,3,0,0,0,0
+Groundnut,Haryana,3,2,3,0,0,0,0
+Dry chillies,Haryana,2,1,1,0,0,0,0
+Arhar/Tur,Haryana,2,2,2,0,0,0,0
+Masoor,Haryana,1,1,1,0,0,0,0
+Rice,Puducherry,3,0,2,0,0,0,0
+Sesamum,Puducherry,3,1,2,0,0,0,0
+Small millets,Puducherry,2,0,1,0,0,0,0
+Sugarcane,Puducherry,3,1,3,0,0,0,0
+Tapioca,Puducherry,1,0,1,0,0,0,0
+Banana,Assam,3,4,3,0,0,0,0
+Ragi,Puducherry,3,0,3,0,0,0,0
+Onion,Puducherry,3,0,3,0,0,0,0
+Groundnut,Puducherry,3,2,3,0,0,0,0
+Sesamum,Haryana,3,2,3,0,0,0,0
+Sunflower,Haryana,1,1,1,0,0,0,0
+Sweet potato,Haryana,1,1,1,0,0,0,0
+Urad,Haryana,1,1,1,0,0,0,0
+Arhar/Tur,Himachal Pradesh,1,3,1,0,0,0,0
+Bajra,Himachal Pradesh,1,2,1,0,0,0,0
+Barley,Himachal Pradesh,1,0,1,0,0,0,0
+Coriander,Himachal Pradesh,1,0,1,0,0,0,0
+Cotton(lint),Himachal Pradesh,1,0,1,0,0,0,0
+Dry chillies,Himachal Pradesh,1,0,1,0,0,0,0
+Garlic,Himachal Pradesh,3,0,1,0,0,0,0
+Ginger,Himachal Pradesh,1,0,1,0,0,0,0
+Gram,Himachal Pradesh,2,0,1,0,0,0,0
+Arecanut,Puducherry,1,0,1,0,0,0,0
+Bajra,Puducherry,3,1,3,0,0,0,0
+Black pepper,Puducherry,2,2,2,0,0,0,0
+Coriander,Puducherry,1,4,1,0,0,0,0
+Cotton(lint),Puducherry,2,0,3,0,0,0,0
+Dry chillies,Puducherry,3,1,3,0,0,0,0
+Sannhamp,Haryana,3,0,1,0,0,0,0
+Other Cereals,Gujarat,3,0,1,0,0,0,0
+Wheat,Nagaland,2,1,2,0,0,0,0
+Urad,Bihar,3,1,3,0,0,0,0
+Rapeseed &Mustard,Manipur,3,1,3,0,0,0,0
+Sesamum,Manipur,3,2,1,0,0,0,0
+Sweet potato,Manipur,1,2,1,0,0,0,0
+Potato,Manipur,3,1,3,0,0,0,0
+Cotton(lint),Mizoram,3,1,3,0,0,0,0
+Rice,Delhi,3,2,3,0,0,0,0
+Sugarcane,Delhi,3,0,2,0,0,0,0
+Wheat,Delhi,3,1,3,0,0,0,0
+Cotton(lint),Manipur,1,1,1,0,0,0,0
+Ginger,Manipur,3,1,3,0,0,0,0
+Potato,Delhi,3,1,2,0,0,0,0
+Other  Rabi pulses,Mizoram,2,1,1,0,0,0,0
+Moong(Green Gram),Odisha,3,1,3,0,0,0,0
+Rapeseed &Mustard,Odisha,1,2,1,0,0,0,0
+Rice,Odisha,3,1,2,0,0,0,0
+Jute,Nagaland,3,4,2,0,0,0,0
+Small millets,Nagaland,2,3,1,0,0,0,0
+Other Kharif pulses,Mizoram,3,1,3,0,0,0,0
+Potato,Mizoram,3,0,1,0,0,0,0
+other oilseeds,Mizoram,1,2,1,0,0,0,0
+Dry chillies,Arunachal Pradesh,3,7,3,0,0,0,0
+Ginger,Arunachal Pradesh,3,0,2,0,0,0,0
+Potato,Arunachal Pradesh,3,2,2,0,0,0,0
+Turmeric,Arunachal Pradesh,1,1,1,0,0,0,0
+Maize,Delhi,3,1,3,0,0,0,0
+Gram,Delhi,1,1,1,0,0,0,0
+Coconut ,Karnataka,3,1,3,0,0,0,0
+Cotton(lint),Karnataka,3,0,1,0,0,0,0
+Gram,Karnataka,3,1,1,0,0,0,0
+Linseed,Karnataka,1,0,1,0,0,0,0
+Moong(Green Gram),Karnataka,1,0,1,0,0,0,0
+Niger seed,Karnataka,3,0,3,0,0,0,0
+Onion,Karnataka,3,0,2,0,0,0,0
+Peas & beans (Pulses),Karnataka,1,1,1,0,0,0,0
+Castor seed,Karnataka,3,3,1,0,0,0,0
+Potato,Karnataka,3,0,3,0,0,0,0
+Arecanut,Goa,2,1,2,0,0,0,0
+Banana,Goa,2,1,2,0,0,0,0
+Black pepper,Goa,2,0,2,0,0,0,0
+Cashewnut,Goa,1,1,1,0,0,0,0
+Coconut ,Goa,1,6,1,0,0,0,0
+Sugarcane,Goa,1,1,1,0,0,0,0
+Groundnut,Himachal Pradesh,2,2,2,0,0,0,0
+Jowar,Delhi,1,0,1,0,0,0,0
+Sesamum,Kerala,2,0,1,0,0,0,0
+Sugarcane,Kerala,3,2,2,0,0,0,0
+Sweet potato,Kerala,3,1,3,0,0,0,0
+Tobacco,Kerala,3,2,3,0,0,0,0
+Turmeric,Kerala,3,1,3,0,0,0,0
+Bajra,Delhi,2,1,2,0,0,0,0
+Barley,Delhi,3,2,3,0,0,0,0
+Cotton(lint),Delhi,1,1,1,0,0,0,0
+Rice,Kerala,3,1,3,0,0,0,0
+Ragi,Kerala,3,1,3,0,0,0,0
+Rapeseed &Mustard,Karnataka,3,0,3,0,0,0,0
+Safflower,Karnataka,2,0,1,0,0,0,0
+Sesamum,Karnataka,3,1,2,0,0,0,0
+Soyabean,Karnataka,3,0,1,0,0,0,0
+Sunflower,Karnataka,3,1,2,0,0,0,0
+Banana,Kerala,1,0,1,0,0,0,0
+Cardamom,Kerala,2,1,3,0,0,0,0
+Cotton(lint),Kerala,3,2,1,0,0,0,0
+Garlic,Kerala,3,1,3,0,0,0,0
+Ginger,Kerala,3,3,3,0,0,0,0
+Groundnut,Kerala,3,1,3,0,0,0,0
+Jowar,Kerala,3,3,3,0,0,0,0
+Horse-gram,Himachal Pradesh,1,1,1,0,0,0,0
+Maize,Himachal Pradesh,2,0,1,0,0,0,0
+Cotton(lint),Uttar Pradesh,1,3,1,0,0,0,0
+Sannhamp,Uttar Pradesh,2,4,1,0,0,0,0
+Tobacco,Tamil Nadu,1,0,1,0,0,0,0
+Turmeric,Tamil Nadu,2,1,1,0,0,0,0
+Urad,Tamil Nadu,3,1,3,0,0,0,0
+Arhar/Tur,Tripura,2,0,2,0,0,0,0
+Cotton(lint),Tripura,1,0,1,0,0,0,0
+Gram,Tripura,1,0,1,0,0,0,0
+Groundnut,Tripura,3,0,2,0,0,0,0
+Jute,Tripura,2,1,2,0,0,0,0
+Maize,Tripura,3,1,3,0,0,0,0
+Masoor,Tripura,3,0,1,0,0,0,0
+Mesta,Tripura,2,2,2,0,0,0,0
+Moong(Green Gram),Tripura,2,0,2,0,0,0,0
+Other  Rabi pulses,Tripura,1,0,1,0,0,0,0
+Other Kharif pulses,Tripura,2,1,3,0,0,0,0
+Peas & beans (Pulses),Tripura,3,3,3,0,0,0,0
+Rapeseed &Mustard,Tripura,2,2,3,0,0,0,0
+Rice,Tripura,2,0,1,0,0,0,0
+Sesamum,Tripura,2,0,3,0,0,0,0
+Sugarcane,Tripura,2,1,1,0,0,0,0
+Urad,Tripura,1,0,1,0,0,0,0
+Wheat,Tripura,3,3,1,0,0,0,0
+Tobacco,Uttar Pradesh,3,1,2,0,0,0,0
+Turmeric,Uttar Pradesh,3,0,3,0,0,0,0
+Ginger,West Bengal,2,1,1,0,0,0,0
+Linseed,Himachal Pradesh,1,1,1,0,0,0,0
+Peas & beans (Pulses),West Bengal,2,2,1,0,0,0,0
+Tapioca,Tamil Nadu,3,0,1,0,0,0,0
+Sweet potato,Tamil Nadu,1,1,1,0,0,0,0
+Sugarcane,Tamil Nadu,1,2,1,0,0,0,0
+Gram,Madhya Pradesh,3,1,3,0,0,0,0
+Wheat,Himachal Pradesh,2,0,1,0,0,0,0
+Urad,Himachal Pradesh,2,1,1,0,0,0,0
+Turmeric,Himachal Pradesh,1,4,1,0,0,0,0
+Soyabean,Himachal Pradesh,2,0,1,0,0,0,0
+Small millets,Himachal Pradesh,2,1,3,0,0,0,0
+Sesamum,Himachal Pradesh,3,2,1,0,0,0,0
+Rice,Himachal Pradesh,1,1,1,0,0,0,0
+Rapeseed &Mustard,Himachal Pradesh,2,0,1,0,0,0,0
+Potato,Himachal Pradesh,2,1,2,0,0,0,0
+Peas & beans (Pulses),Himachal Pradesh,3,1,2,0,0,0,0
+Moong(Green Gram),Himachal Pradesh,2,2,1,0,0,0,0
+Masoor,Himachal Pradesh,1,1,1,0,0,0,0
+Tobacco,Himachal Pradesh,1,1,1,0,0,0,0
+Rapeseed &Mustard,Maharashtra,2,0,2,0,0,0,0
+Other Kharif pulses,Maharashtra,1,0,1,0,0,0,0
+Sunflower,Tamil Nadu,3,3,1,0,0,0,0
+Other Cereals,Maharashtra,2,0,1,0,0,0,0
+Niger seed,Maharashtra,3,7,3,0,0,0,0
+Linseed,Maharashtra,3,2,1,0,0,0,0
+Rice,Madhya Pradesh,3,0,3,0,0,0,0
+Groundnut,Maharashtra,3,0,3,0,0,0,0
+Castor seed,Maharashtra,3,2,1,0,0,0,0
+Sugarcane,Madhya Pradesh,2,1,2,0,0,0,0
+Safflower,Maharashtra,1,0,1,0,0,0,0
+Black pepper,Tamil Nadu,1,0,1,0,0,0,0
+Cardamom,Tamil Nadu,1,4,1,0,0,0,0
+Cashewnut,Tamil Nadu,1,0,1,0,0,0,0
+Castor seed,Tamil Nadu,1,0,1,0,0,0,0
+Coriander,Tamil Nadu,1,3,1,0,0,0,0
+Cotton(lint),Tamil Nadu,3,0,2,0,0,0,0
+Dry chillies,Tamil Nadu,3,3,1,0,0,0,0
+Garlic,Tamil Nadu,3,4,3,0,0,0,0
+Ginger,Tamil Nadu,2,1,2,0,0,0,0
+Gram,Tamil Nadu,2,4,2,0,0,0,0
+Groundnut,Tamil Nadu,2,0,2,0,0,0,0
+Banana,Tamil Nadu,3,1,2,0,0,0,0
+Horse-gram,Tamil Nadu,3,1,2,0,0,0,0
+Maize,Tamil Nadu,3,2,3,0,0,0,0
+Moong(Green Gram),Tamil Nadu,2,0,1,0,0,0,0
+Onion,Tamil Nadu,2,0,1,0,0,0,0
+Potato,Tamil Nadu,3,0,2,0,0,0,0
+Ragi,Tamil Nadu,3,1,3,0,0,0,0
+Rapeseed &Mustard,Tamil Nadu,1,4,1,0,0,0,0
+Rice,Tamil Nadu,3,1,3,0,0,0,0
+Small millets,Tamil Nadu,1,2,1,0,0,0,0
+Jowar,Tamil Nadu,3,0,2,0,0,0,0
+Bajra,Tamil Nadu,3,2,3,0,0,0,0
+Sesamum,Tamil Nadu,2,0,1,0,0,0,0
+Arhar/Tur,Tamil Nadu,3,1,3,0,0,0,0
+Sesamum,Maharashtra,1,0,1,0,0,0,0
+Soyabean,Maharashtra,1,0,1,0,0,0,0
+Sunflower,Maharashtra,3,0,2,0,0,0,0
+Peas & beans (Pulses),Punjab,2,3,2,0,0,0,0
+Linseed,Punjab,1,1,1,0,0,0,0
+Gram,Nagaland,1,0,1,0,0,0,0
+Cotton(lint),Nagaland,1,0,1,0,0,0,0
+Castor seed,Nagaland,1,0,1,0,0,0,0
+Arhar/Tur,Nagaland,3,0,1,0,0,0,0
+Small millets,Maharashtra,2,0,1,0,0,0,0
+Sugarcane,Jammu and Kashmir,3,1,3,0,0,0,0
+Sesamum,Jammu and Kashmir,1,0,1,0,0,0,0
+Rapeseed &Mustard,Jammu and Kashmir,3,3,1,0,0,0,0
+Linseed,Jammu and Kashmir,1,2,1,0,0,0,0
+Groundnut,Nagaland,3,0,2,0,0,0,0
+Soyabean,Nagaland,2,0,1,0,0,0,0
+Gram,Odisha,1,3,1,0,0,0,0
+Ginger,Odisha,1,1,1,0,0,0,0
+Garlic,Odisha,1,1,1,0,0,0,0
+Dry chillies,Odisha,1,5,1,0,0,0,0
+Coriander,Odisha,1,1,1,0,0,0,0
+Castor seed,Odisha,1,1,1,0,0,0,0
+Bajra,Odisha,1,2,1,0,0,0,0
+Sunflower,Nagaland,3,1,3,0,0,0,0
+Sugarcane,Nagaland,1,1,1,0,0,0,0
+Jowar,Jammu and Kashmir,1,1,1,0,0,0,0
+Sesamum,Nagaland,1,1,1,0,0,0,0
+Rapeseed &Mustard,Nagaland,2,0,2,0,0,0,0
+Potato,Nagaland,2,1,2,0,0,0,0
+Peas & beans (Pulses),Nagaland,1,0,1,0,0,0,0
+Moong(Green Gram),Nagaland,3,2,2,0,0,0,0
+Linseed,Nagaland,2,0,1,0,0,0,0
+Groundnut,Jammu and Kashmir,2,2,2,0,0,0,0
+Barley,Jammu and Kashmir,3,0,3,0,0,0,0
+Linseed,Andhra Pradesh,2,1,2,0,0,0,0
+Niger seed,Andhra Pradesh,2,1,1,0,0,0,0
+Onion,Andhra Pradesh,2,0,2,0,0,0,0
+Bajra,Jammu and Kashmir,3,1,1,0,0,0,0
+Gram,Jammu and Kashmir,1,1,1,0,0,0,0
+Safflower,Andhra Pradesh,3,1,3,0,0,0,0
+Rapeseed &Mustard,Andhra Pradesh,3,0,2,0,0,0,0
+Turmeric,Odisha,1,0,1,0,0,0,0
+Potato,Tripura,1,1,1,0,0,0,0
+Jowar,Odisha,1,0,1,0,0,0,0
+Niger seed,Odisha,1,3,1,0,0,0,0
+Masoor,Odisha,1,2,1,0,0,0,0
+Linseed,Odisha,1,1,1,0,0,0,0
+Onion,Odisha,1,1,1,0,0,0,0
+Tobacco,Odisha,1,2,1,0,0,0,0
+Sweet potato,Odisha,1,2,1,0,0,0,0
+Sunflower,Odisha,1,3,1,0,0,0,0
+Small millets,Odisha,1,2,1,0,0,0,0
+Safflower,Odisha,1,2,1,0,0,0,0
+Banana,Karnataka,2,1,2,0,0,0,0
+Sugarcane,Himachal Pradesh,2,1,2,0,0,0,0
+Peas & beans (Pulses),Bihar,3,1,1,0,0,0,0
+Moong(Green Gram),Bihar,3,1,3,0,0,0,0
+Masoor,Bihar,3,2,2,0,0,0,0
+Khesari,Bihar,3,2,3,0,0,0,0
+Horse-gram,Bihar,3,0,3,0,0,0,0
+Mesta,Karnataka,3,2,2,0,0,0,0
+Urad,Madhya Pradesh,2,0,3,0,0,0,0
+Turmeric,Madhya Pradesh,3,1,3,0,0,0,0
+Sweet potato,Madhya Pradesh,3,3,3,0,0,0,0
+Urad,Karnataka,3,1,1,0,0,0,0
+Tobacco,Karnataka,3,1,2,0,0,0,0
+Tapioca,Karnataka,3,3,2,0,0,0,0
+Sweet potato,Karnataka,3,1,3,0,0,0,0
+Small millets,Karnataka,1,2,1,0,0,0,0
+Sannhamp,Karnataka,1,3,1,0,0,0,0
+Other Kharif pulses,Karnataka,3,2,3,0,0,0,0
+Other  Rabi pulses,Karnataka,3,2,3,0,0,0,0
+Castor seed,Madhya Pradesh,1,2,1,0,0,0,0
+Sannhamp,Madhya Pradesh,2,0,1,0,0,0,0
+Safflower,Madhya Pradesh,3,3,3,0,0,0,0
+Ragi,Madhya Pradesh,3,4,1,0,0,0,0
+Other  Rabi pulses,Madhya Pradesh,2,3,2,0,0,0,0
+Onion,Madhya Pradesh,3,1,3,0,0,0,0
+Niger seed,Madhya Pradesh,2,1,3,0,0,0,0
+Ginger,Madhya Pradesh,3,1,3,0,0,0,0
+Garlic,Madhya Pradesh,3,1,3,0,0,0,0
+Dry chillies,Madhya Pradesh,2,2,2,0,0,0,0
+Coriander,Madhya Pradesh,2,1,3,0,0,0,0
+Other Kharif pulses,Madhya Pradesh,1,0,1,0,0,0,0
+Potato,Madhya Pradesh,3,1,3,0,0,0,0
+Urad,Puducherry,3,1,2,0,0,0,0
+Other  Rabi pulses,Puducherry,1,0,1,0,0,0,0
+Jowar,Puducherry,1,2,1,0,0,0,0
+Moong(Green Gram),Puducherry,3,1,2,0,0,0,0
+Banana,Puducherry,1,3,1,0,0,0,0
+Cashewnut,Puducherry,1,0,1,0,0,0,0
+Coconut ,Puducherry,1,5,1,0,0,0,0
+Tobacco,West Bengal,3,1,3,0,0,0,0
+Other Kharif pulses,Nagaland,1,2,1,0,0,0,0
+Other  Rabi pulses,Nagaland,1,1,1,0,0,0,0
+Other Kharif pulses,Odisha,1,1,1,0,0,0,0
+Other  Rabi pulses,Odisha,1,1,1,0,0,0,0
+other oilseeds,Sikkim,1,1,1,0,0,0,0
+Other Kharif pulses,Sikkim,1,0,1,0,0,0,0
+Other Cereals,Sikkim,3,0,2,0,0,0,0
+Niger seed,Nagaland,1,0,1,0,0,0,0
+Barley,Nagaland,3,1,3,0,0,0,0
+Masoor,Mizoram,2,2,1,0,0,0,0
+Arhar/Tur,Uttarakhand,1,4,1,0,0,0,0
+Bajra,Uttarakhand,3,0,1,0,0,0,0
+Barley,Uttarakhand,2,0,1,0,0,0,0
+Gram,Uttarakhand,2,4,2,0,0,0,0
+Rice,Uttarakhand,3,2,3,0,0,0,0
+Rapeseed &Mustard,Uttarakhand,3,3,3,0,0,0,0
+Ragi,Uttarakhand,1,0,1,0,0,0,0
+Potato,Uttarakhand,3,0,3,0,0,0,0
+Peas & beans (Pulses),Uttarakhand,2,0,1,0,0,0,0
+Other Kharif pulses,Uttarakhand,1,2,1,0,0,0,0
+Other Cereals,Uttarakhand,3,0,2,0,0,0,0
+Other  Rabi pulses,Uttarakhand,3,0,2,0,0,0,0
+Onion,Uttarakhand,2,1,2,0,0,0,0
+Moong(Green Gram),Uttarakhand,3,0,3,0,0,0,0
+Garlic,Uttarakhand,3,1,1,0,0,0,0
+Maize,Uttarakhand,3,1,2,0,0,0,0
+Linseed,Uttarakhand,1,2,1,0,0,0,0
+Horse-gram,Uttarakhand,3,2,2,0,0,0,0
+Groundnut,Uttarakhand,1,2,1,0,0,0,0
+Masoor,Uttarakhand,2,1,2,0,0,0,0
+Moth,Punjab,1,2,1,0,0,0,0
+Other Kharif pulses,Tamil Nadu,2,1,2,0,0,0,0
+Other Cereals,Tamil Nadu,1,2,1,0,0,0,0
+Jowar,Chhattisgarh,2,1,1,0,0,0,0
+Horse-gram,Chhattisgarh,1,0,1,0,0,0,0
+Groundnut,Chhattisgarh,1,0,1,0,0,0,0
+Gram,Chhattisgarh,3,1,1,0,0,0,0
+Ginger,Chhattisgarh,1,1,1,0,0,0,0
+Garlic,Chhattisgarh,1,0,1,0,0,0,0
+Dry chillies,Chhattisgarh,2,2,1,0,0,0,0
+Cotton(lint),Chhattisgarh,2,0,1,0,0,0,0
+Coriander,Chhattisgarh,2,0,1,0,0,0,0
+Castor seed,Chhattisgarh,1,1,1,0,0,0,0
+Barley,Chhattisgarh,2,1,1,0,0,0,0
+Bajra,Chhattisgarh,3,0,1,0,0,0,0
+Khesari,Chhattisgarh,1,5,1,0,0,0,0
+Arhar/Tur,Chhattisgarh,1,1,1,0,0,0,0
+Linseed,Chhattisgarh,3,2,2,0,0,0,0
+Masoor,Chhattisgarh,1,7,1,0,0,0,0
+Wheat,Chhattisgarh,3,1,3,0,0,0,0
+Urad,Chhattisgarh,3,1,1,0,0,0,0
+Turmeric,Chhattisgarh,3,0,1,0,0,0,0
+Tobacco,Chhattisgarh,3,0,1,0,0,0,0
+Sweet potato,Chhattisgarh,1,1,1,0,0,0,0
+Sunflower,Chhattisgarh,1,2,1,0,0,0,0
+Sugarcane,Chhattisgarh,1,1,1,0,0,0,0
+Soyabean,Chhattisgarh,1,3,1,0,0,0,0
+Small millets,Chhattisgarh,2,0,1,0,0,0,0
+Sesamum,Chhattisgarh,3,3,1,0,0,0,0
+Maize,Chhattisgarh,3,1,2,0,0,0,0
+Sannhamp,Chhattisgarh,1,0,1,0,0,0,0
+Rice,Chhattisgarh,3,1,2,0,0,0,0
+Rapeseed &Mustard,Chhattisgarh,3,1,3,0,0,0,0
+Ragi,Chhattisgarh,1,0,1,0,0,0,0
+Potato,Chhattisgarh,3,0,3,0,0,0,0
+Peas & beans (Pulses),Chhattisgarh,2,1,2,0,0,0,0
+Other Kharif pulses,Chhattisgarh,2,1,1,0,0,0,0
+Other  Rabi pulses,Chhattisgarh,3,1,1,0,0,0,0
+Onion,Chhattisgarh,3,1,1,0,0,0,0
+Niger seed,Chhattisgarh,1,0,1,0,0,0,0
+Moong(Green Gram),Chhattisgarh,3,0,2,0,0,0,0
+Mesta,Chhattisgarh,3,1,2,0,0,0,0
+Safflower,Chhattisgarh,3,1,3,0,0,0,0
+Dry chillies,Jammu and Kashmir,1,1,1,0,0,0,0
+Garlic,Jammu and Kashmir,1,0,1,0,0,0,0
+Ginger,Jammu and Kashmir,3,1,2,0,0,0,0
+Onion,Jammu and Kashmir,3,0,1,0,0,0,0
+Sannhamp,Jammu and Kashmir,1,1,1,0,0,0,0
+Tobacco,Jammu and Kashmir,1,0,1,0,0,0,0
+Turmeric,Jammu and Kashmir,2,4,1,0,0,0,0
+other oilseeds,Jammu and Kashmir,2,0,1,0,0,0,0
+Other Kharif pulses,Himachal Pradesh,1,1,1,0,0,0,0
+Guar seed,Gujarat,1,1,1,0,0,0,0
+Turmeric,Haryana,3,1,2,0,0,0,0
+Ginger,Haryana,3,0,1,0,0,0,0
+Garlic,Haryana,2,1,2,0,0,0,0
+Sesamum,Uttarakhand,2,1,2,0,0,0,0
+Moth,Uttarakhand,1,1,1,0,0,0,0
+Small millets,Uttarakhand,1,0,1,0,0,0,0
+Potato,Andhra Pradesh,3,0,3,0,0,0,0
+Sweet potato,Andhra Pradesh,2,10,3,0,0,0,0
+Tapioca,Andhra Pradesh,1,0,1,0,0,0,0
+Arecanut,Andhra Pradesh,2,1,3,0,0,0,0
+Banana,Andhra Pradesh,3,1,2,0,0,0,0
+Cashewnut,Andhra Pradesh,2,2,2,0,0,0,0
+Coconut ,Andhra Pradesh,3,2,3,0,0,0,0
+Coriander,Andhra Pradesh,3,3,2,0,0,0,0
+Ginger,Andhra Pradesh,3,0,3,0,0,0,0
+Soyabean,Uttarakhand,1,0,1,0,0,0,0
+Sugarcane,Uttarakhand,2,2,3,0,0,0,0
+Sunflower,Uttarakhand,1,0,1,0,0,0,0
+Tobacco,Uttarakhand,2,2,2,0,0,0,0
+Turmeric,Uttarakhand,3,0,1,0,0,0,0
+Urad,Uttarakhand,3,1,3,0,0,0,0
+Wheat,Uttarakhand,3,5,2,0,0,0,0
+other oilseeds,Uttarakhand,3,1,2,0,0,0,0
+Urad,Mizoram,1,1,1,0,0,0,0
+Moong(Green Gram),Mizoram,1,1,1,0,0,0,0
+Horse-gram,Jammu and Kashmir,1,2,1,0,0,0,0
+Cotton(lint),Jammu and Kashmir,3,1,2,0,0,0,0
+Other Kharif pulses,Delhi,1,0,1,0,0,0,0
+Masoor,Jammu and Kashmir,3,1,3,0,0,0,0
+Urad,Jammu and Kashmir,3,0,2,0,0,0,0
+Potato,Jammu and Kashmir,3,0,1,0,0,0,0
+Peas & beans (Pulses),Jammu and Kashmir,2,1,2,0,0,0,0
+Moong(Green Gram),Jammu and Kashmir,2,2,1,0,0,0,0
+Horse-gram,Haryana,3,2,2,0,0,0,0
+Banana,Madhya Pradesh,2,3,2,0,0,0,0
+Onion,Himachal Pradesh,2,1,1,0,0,0,0
+Other  Rabi pulses,Himachal Pradesh,3,2,1,0,0,0,0
+Sannhamp,Himachal Pradesh,1,0,1,0,0,0,0
+Tobacco,Madhya Pradesh,3,0,1,0,0,0,0
+Peas & beans (Pulses),Assam,3,3,3,0,0,0,0
+Moong(Green Gram),Assam,3,2,3,0,0,0,0
+Masoor,Assam,3,2,3,0,0,0,0
+Urad,Assam,3,2,3,0,0,0,0
+Potato,Jharkhand,3,0,1,0,0,0,0
+Ragi,Jharkhand,2,0,1,0,0,0,0
+Rapeseed &Mustard,Jharkhand,2,1,1,0,0,0,0
+Rice,Jharkhand,3,1,2,0,0,0,0
+Wheat,Jharkhand,3,2,2,0,0,0,0
+Masoor,Jharkhand,3,1,1,0,0,0,0
+Gram,Jharkhand,3,2,2,0,0,0,0
+Maize,Jharkhand,3,0,3,0,0,0,0
+Arhar/Tur,Jharkhand,1,0,1,0,0,0,0
+Guar seed,Punjab,3,0,2,0,0,0,0
+Cashewnut,Meghalaya,3,1,1,0,0,0,0
+Arecanut,Tamil Nadu,1,3,1,0,0,0,0
+Coconut ,Tamil Nadu,3,3,2,0,0,0,0
+Cashewnut,Manipur,1,2,1,0,0,0,0
+other oilseeds,Andhra Pradesh,2,1,1,0,0,0,0
+Soyabean,Andhra Pradesh,3,3,1,0,0,0,0
+Other Kharif pulses,Jammu and Kashmir,1,3,1,0,0,0,0
+Other  Rabi pulses,Jammu and Kashmir,1,0,1,0,0,0,0
+Moth,Jammu and Kashmir,3,1,1,0,0,0,0
+Small millets,Jammu and Kashmir,2,1,2,0,0,0,0
+Horse-gram,Madhya Pradesh,3,0,2,0,0,0,0
+other oilseeds,Haryana,1,2,1,0,0,0,0
+Masoor,Madhya Pradesh,3,0,3,0,0,0,0
+Mesta,Madhya Pradesh,1,1,1,0,0,0,0
+Moong(Green Gram),Madhya Pradesh,3,1,3,0,0,0,0
+Peas & beans (Pulses),Madhya Pradesh,3,1,3,0,0,0,0
+Arhar/Tur,Manipur,1,1,1,0,0,0,0
+Sugarcane,Jharkhand,1,1,1,0,0,0,0
+other oilseeds,Maharashtra,1,0,1,0,0,0,0
+Onion,Jharkhand,1,0,1,0,0,0,0
+Small millets,Kerala,1,0,1,0,0,0,0
+Sunflower,Punjab,1,0,1,0,0,0,0
+Masoor,Nagaland,1,1,1,0,0,0,0
+Black pepper,Meghalaya,2,2,2,0,0,0,0
+Other Cereals,Kerala,1,1,1,0,0,0,0
+Banana,Uttar Pradesh,2,2,1,0,0,0,0
+Dry chillies,Uttar Pradesh,3,1,2,0,0,0,0
+Garlic,Uttar Pradesh,1,1,1,0,0,0,0
+Sweet potato,Uttar Pradesh,2,2,1,0,0,0,0
+Guar seed,Uttar Pradesh,3,1,2,0,0,0,0
+Other Kharif pulses,Puducherry,1,1,1,0,0,0,0
+Garlic,Andhra Pradesh,1,1,1,0,0,0,0
+Other Cereals,Jammu and Kashmir,2,3,1,0,0,0,0
+Coriander,Uttar Pradesh,1,1,1,0,0,0,0
+Moth,Himachal Pradesh,2,1,1,0,0,0,0
+Ragi,Himachal Pradesh,1,1,1,0,0,0,0
+Jute,Chhattisgarh,1,1,1,0,0,0,0
+Ginger,Nagaland,1,0,1,0,0,0,0
+Urad,Nagaland,2,0,1,0,0,0,0
+Cowpea(Lobia),Jammu and Kashmir,1,1,1,0,0,0,0
+Ginger,Uttar Pradesh,1,1,1,0,0,0,0
+Castor seed,Haryana,1,1,1,0,0,0,0
+Khesari,Madhya Pradesh,1,1,1,0,0,0,0
+Jute,Madhya Pradesh,1,1,1,0,0,0,0
+Ginger,Assam,2,1,2,0,0,0,0
+Tapioca,Nagaland,3,0,1,0,0,0,0
+Sweet potato,Puducherry,3,0,2,0,0,0,0
+Turmeric,Puducherry,1,7,1,0,0,0,0
+Black pepper,Assam,2,2,2,0,0,0,0
+Other  Rabi pulses,Manipur,3,1,2,0,0,0,0
+Moong(Green Gram),Manipur,1,0,1,0,0,0,0
+Masoor,Manipur,2,2,1,0,0,0,0
+Groundnut,Manipur,2,0,1,0,0,0,0
+Gram,Manipur,3,1,1,0,0,0,0
+Cowpea(Lobia),Manipur,1,0,1,0,0,0,0
+Wheat,Manipur,1,2,1,0,0,0,0
+Other  Rabi pulses,West Bengal,3,1,2,0,0,0,0
+Urad,Manipur,1,0,1,0,0,0,0
+Coconut ,Chhattisgarh,1,1,1,0,0,0,0
+Coriander,Haryana,3,1,2,0,0,0,0
+Cashewnut,Karnataka,1,1,1,0,0,0,0
+Masoor,Meghalaya,3,0,2,0,0,0,0
+Peas & beans (Pulses),Meghalaya,1,0,1,0,0,0,0
+Ragi,Nagaland,1,0,1,0,0,0,0
+Mesta,Nagaland,1,2,1,0,0,0,0
+Soyabean,Gujarat,2,2,1,0,0,0,0
+Cowpea(Lobia),Mizoram,3,1,3,0,0,0,0
+Onion,Mizoram,1,0,1,0,0,0,0
+Horse-gram,Nagaland,1,1,1,0,0,0,0
+Cowpea(Lobia),Karnataka,2,0,1,0,0,0,0
+Cowpea(Lobia),Andhra Pradesh,3,2,2,0,0,0,0
+Sweet potato,Nagaland,1,0,1,0,0,0,0
+Potato,Kerala,1,2,1,0,0,0,0
+Wheat,Kerala,1,1,1,0,0,0,0
+Onion,Kerala,1,1,1,0,0,0,0
+Maize,Kerala,1,3,1,0,0,0,0
+Arhar/Tur,Kerala,1,1,1,0,0,0,0
+Cashewnut,Telangana,1,2,1,0,0,0,0
+Banana,Telangana,1,1,1,0,0,0,0
+Bajra,Telangana,3,0,1,0,0,0,0
+Arhar/Tur,Telangana,1,1,1,0,0,0,0
+Cowpea(Lobia),Nagaland,1,1,1,0,0,0,0
+Castor seed,Telangana,2,1,2,0,0,0,0
+Tobacco,Maharashtra,1,2,1,0,0,0,0
+Coriander,Telangana,2,1,2,0,0,0,0
+Moong(Green Gram),Telangana,1,1,1,0,0,0,0
+Maize,Telangana,1,1,1,0,0,0,0
+Jowar,Telangana,2,0,1,0,0,0,0
+Horse-gram,Telangana,3,1,1,0,0,0,0
+Groundnut,Telangana,2,1,2,0,0,0,0
+Gram,Telangana,2,2,1,0,0,0,0
+Ginger,Telangana,3,0,2,0,0,0,0
+Dry chillies,Telangana,3,1,1,0,0,0,0
+Cowpea(Lobia),Telangana,3,1,1,0,0,0,0
+Cotton(lint),Telangana,1,1,1,0,0,0,0
+Onion,Telangana,2,1,1,0,0,0,0
+Wheat,Telangana,1,2,1,0,0,0,0
+Urad,Telangana,2,1,1,0,0,0,0
+Turmeric,Telangana,1,1,1,0,0,0,0
+Tobacco,Telangana,3,5,1,0,0,0,0
+Sweet potato,Telangana,1,1,1,0,0,0,0
+Sunflower,Telangana,3,2,2,0,0,0,0
+Sugarcane,Telangana,1,1,1,0,0,0,0
+Soyabean,Telangana,1,2,1,0,0,0,0
+Small millets,Telangana,1,1,1,0,0,0,0
+Sesamum,Telangana,2,0,1,0,0,0,0
+Safflower,Telangana,1,0,1,0,0,0,0
+Rice,Telangana,1,1,1,0,0,0,0
+Ragi,Telangana,3,2,1,0,0,0,0
+Potato,Telangana,2,2,1,0,0,0,0
+Cowpea(Lobia),Meghalaya,1,0,1,0,0,0,0
+Peas & beans (Pulses),Jharkhand,1,1,1,0,0,0,0
+Onion,Meghalaya,1,0,1,0,0,0,0
+Other Kharif pulses,Kerala,1,1,1,0,0,0,0
+Oilseeds total,Andhra Pradesh,2,0,1,0,0,0,0
+Garlic,Telangana,1,1,1,0,0,0,0
+other oilseeds,Nagaland,1,0,1,0,0,0,0
+Cowpea(Lobia),Tripura,1,1,1,0,0,0,0
+Soyabean,Tripura,2,2,1,0,0,0,0
+Urad,Jharkhand,1,0,1,0,0,0,0
+Jowar,Tripura,2,0,1,0,0,0,0
+Urad,Arunachal Pradesh,1,1,1,0,0,0,0
+Peas & beans (Pulses),Arunachal Pradesh,1,0,1,0,0,0,0
+Sunflower,Jharkhand,1,1,1,0,0,0,0
+Ragi,Jammu and Kashmir,1,1,1,0,0,0,0
+Other Cereals,Nagaland,2,0,1,0,0,0,0
+Cowpea(Lobia),Tamil Nadu,1,0,1,0,0,0,0
