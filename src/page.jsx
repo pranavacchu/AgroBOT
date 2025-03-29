@@ -31,26 +31,31 @@ export default function Home() {
     solutions: {
       title: "Agricultural Solutions",
       content: (
-        <div>
-          <h3>For Farmers</h3>
-          <p>Make informed decisions about when to sell your crops and maximize your profits.</p>
-          <h3>For Traders</h3>
-          <p>Access market insights and trading opportunities in the agricultural sector.</p>
-          <h3>For Businesses</h3>
-          <p>Optimize your supply chain and inventory management with our predictive analytics.</p>
+        <div className={styles.solutionsModalContent}>
+          <div className={styles.solutionsText}>
+            <h3>For Farmers</h3>
+            <p>Make informed decisions about when to sell your crops and maximize your profits.</p>
+            <h3>For Traders</h3>
+            <p>Access market insights and trading opportunities in the agricultural sector.</p>
+            <h3>For Businesses</h3>
+            <p>Optimize your supply chain and inventory management with our predictive analytics.</p>
+          </div>
+          <div className={styles.solutionsImageContainer}>
+            <img 
+              src="/farmer_ghibli.png" 
+              alt="Farmer in field" 
+              className={styles.solutionsImage} 
+            />
+            <div className={styles.imageOverlay}></div>
+          </div>
         </div>
       )
     },
     resources: {
-      title: "Learning Resources",
+      title: "Resources",
       content: (
         <div>
-          <h3>Knowledge Base</h3>
-          <p>Access our comprehensive library of agricultural market insights and guides.</p>
-          <h3>Market Reports</h3>
-          <p>Download detailed reports about crop prices and market trends.</p>
-          <h3>Training Materials</h3>
-          <p>Learn how to use our platform effectively with our training resources.</p>
+          <p className={styles.resourcesParagraph}>The Knowledge Base includes insights from web crawling multiple official government websites related to agriculture in India, along with authoritative datasets such as the Agricultural Crop Yield in Indian States Dataset, the PlantVillage dataset, and the New Plant Diseases dataset. These resources support advanced crop yield forecasting and disease prediction.</p>
         </div>
       )
     },

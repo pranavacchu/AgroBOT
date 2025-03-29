@@ -103,10 +103,18 @@
   margin-top: 0;
 }
 
+.modalBody p.resourcesParagraph {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 1rem 0;
+}
+
 .modalBody p {
   margin: 0.5rem 0;
   color: rgba(255, 255, 255, 0.8);
   font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Contact Grid Styles */
@@ -195,5 +203,70 @@
   .contactItem,
   .pricingItem {
     padding: 1rem;
+  }
+}
+
+/* Solutions modal with image */
+.solutionsModalContent {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.solutionsText {
+  flex: 1;
+  min-width: 0;
+}
+
+.solutionsImageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  max-width: 300px;
+  height: 300px;
+}
+
+.solutionsImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.solutionsImage:hover {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), transparent);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .solutionsModalContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .solutionsImageContainer {
+    width: 100%;
+    max-width: 100%;
+    height: 200px;
+    order: -1;
   }
 } 

@@ -1,11 +1,80 @@
-import { useState } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Dashboard.module.css';
-import { Map, Users, ShoppingBag, Activity, Upload, Image, MessageCircle, X, ChevronLeft, Mail, Phone, User, LineChart, BarChart } from 'lucide-react';
-import Modal from './Modal';
+import { Map, Users, ShoppingBag, Activity, Upload, Image, MessageCircle, X, ChevronLeft, Mail, Phone, User, LineChart, BarChart, Loader } from 'lucide-react';
 import { RiProductHuntLine } from "react-icons/ri";
 import { IoMdOptions } from "react-icons/io";
 import { FaBook, FaMoneyBillWave, FaUserFriends } from "react-icons/fa";
+
+// Lazy load modal component to improve initial load time
+const Modal = lazy(() => import('./Modal'));
+
+// Simple Markdown parser function to convert markdown to HTML
+const parseMarkdown = (markdown) => {
+  if (!markdown) return '';
+  
+  let html = markdown
+    // Headers
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    
+    // Bold and italic
+    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+    .replace(/__(.*?)__/gim, '<strong>$1</strong>')
+    .replace(/_(.*?)_/gim, '<em>$1</em>')
+    
+    // Lists
+    .replace(/^\* (.*$)/gim, '<li>$1</li>')
+    .replace(/^- (.*$)/gim, '<li>$1</li>')
+    .replace(/^(\d+)\. (.*$)/gim, '<li>$2</li>')
+    
+    // Paragraphs
+    .replace(/\n\s*\n/g, '</p><p>')
+    
+    // Line breaks
+    .replace(/\n/gim, '<br>');
+  
+  // Wrap lists in ul/ol tags
+  const listItemRegex = /<li>.*?<\/li>/g;
+  const listItems = html.match(listItemRegex);
+  
+  if (listItems) {
+    let processedHtml = html;
+    const uniqueId = Date.now();
+    
+    // Replace list items with placeholder
+    processedHtml = processedHtml.replace(
+      /<li>.*?<\/li>/g, 
+      `<ul id="list-${uniqueId}">${listItems.join('')}</ul>`
+    );
+    
+    // Remove duplicate lists (keeping only the first occurrence)
+    const placeholder = new RegExp(`<ul id="list-${uniqueId}">.*?</ul>`, 'g');
+    const matches = processedHtml.match(placeholder);
+    
+    if (matches && matches.length > 1) {
+      let first = true;
+      processedHtml = processedHtml.replace(placeholder, (match) => {
+        if (first) {
+          first = false;
+          return match;
+        }
+        return '';
+      });
+    }
+    
+    html = processedHtml;
+  }
+  
+  // Wrap in paragraph tags if not starting with a block element
+  if (!html.startsWith('<h') && !html.startsWith('<ul') && !html.startsWith('<p>')) {
+    html = `<p>${html}</p>`;
+  }
+  
+  return html;
+};
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -16,6 +85,7 @@ export default function Dashboard() {
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [loadingMessage, setLoadingMessage] = useState(null);
 
   const [yieldPredForm, setYieldPredForm] = useState({
     crop: '',
@@ -55,26 +125,31 @@ export default function Dashboard() {
     solutions: {
       title: "Agricultural Solutions",
       content: (
-        <div>
-          <h3>For Farmers</h3>
-          <p>Make informed decisions about when to sell your crops and maximize your profits.</p>
-          <h3>For Traders</h3>
-          <p>Access market insights and trading opportunities in the agricultural sector.</p>
-          <h3>For Businesses</h3>
-          <p>Optimize your supply chain and inventory management with our predictive analytics.</p>
+        <div className={styles.solutionsModalContent}>
+          <div className={styles.solutionsText}>
+            <h3>For Farmers</h3>
+            <p>Make informed decisions about when to sell your crops and maximize your profits.</p>
+            <h3>For Traders</h3>
+            <p>Access market insights and trading opportunities in the agricultural sector.</p>
+            <h3>For Businesses</h3>
+            <p>Optimize your supply chain and inventory management with our predictive analytics.</p>
+          </div>
+          <div className={styles.solutionsImageContainer}>
+            <img 
+              src="/farmer_ghibli.png" 
+              alt="Farmer in field" 
+              className={styles.solutionsImage} 
+            />
+            <div className={styles.imageOverlay}></div>
+          </div>
         </div>
       )
     },
     resources: {
-      title: "Learning Resources",
+      title: "Resources",
       content: (
         <div>
-          <h3>Knowledge Base</h3>
-          <p>Access our comprehensive library of agricultural market insights and guides.</p>
-          <h3>Market Reports</h3>
-          <p>Download detailed reports about crop prices and market trends.</p>
-          <h3>Training Materials</h3>
-          <p>Learn how to use our platform effectively with our training resources.</p>
+          <p className={styles.resourcesParagraph}>The Knowledge Base includes insights from web crawling multiple official government websites related to agriculture in India, along with authoritative datasets such as the Agricultural Crop Yield in Indian States Dataset, the PlantVillage dataset, and the New Plant Diseases dataset. These resources support advanced crop yield forecasting and disease prediction.</p>
         </div>
       )
     },
@@ -164,6 +239,19 @@ export default function Dashboard() {
     { title: 'Top products', content: 'No products', icon: <ShoppingBag size={20} /> }
   ];
 
+  // Add loading state for initial component mount
+  const [pageLoading, setPageLoading] = useState(true);
+  
+  // Effect to handle initial loading
+  useEffect(() => {
+    // Simulate loading complete after DOM is ready
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 800);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -246,6 +334,22 @@ export default function Dashboard() {
     }
   };
 
+  // Add a model status check function
+  const checkModelStatus = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/model-status/');
+      if (!response.ok) {
+        throw new Error(`Failed to check model status: ${response.status}`);
+      }
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error("Error checking model status:", error);
+      return { model_loaded: false, api_status: "error" };
+    }
+  };
+
+  // Update the handlePredict function
   const handlePredict = async () => {
     if (!selectedFile) {
       setError("Please select an image first");
@@ -254,18 +358,66 @@ export default function Dashboard() {
 
     setIsLoading(true);
     setError(null);
+    setLoadingMessage("Preparing for analysis..."); // Initial loading message
+    setPrediction(null); // Clear any previous prediction
+
+    // Check model status before uploading
+    try {
+      const status = await checkModelStatus();
+      if (status.api_status !== "active") {
+        throw new Error("The prediction service is currently unavailable. Please try again later.");
+      }
+      
+      if (!status.model_loaded) {
+        setLoadingMessage("Note: Using fallback prediction mode as the full model couldn't be loaded");
+      }
+    } catch (error) {
+      // Continue even if status check fails, as the API might still work
+      console.warn("Model status check failed:", error);
+    }
+
+    // Clear prediction after 20 seconds if no response (failsafe)
+    const timeoutId = setTimeout(() => {
+      if (isLoading) {
+        setIsLoading(false);
+        setLoadingMessage(null);
+        setError("Analysis is taking too long. Please try again.");
+      }
+    }, 20000);
 
     try {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
       console.log("Sending prediction request...");
+      
+      const loadingMessages = [
+        "Analyzing your plant image...",
+        "Identifying patterns...", 
+        "Running disease detection algorithms...",
+        "Almost there..."
+      ];
+      
+      let messageIndex = 0;
+      const messageInterval = setInterval(() => {
+        if (isLoading && messageIndex < loadingMessages.length) {
+          setLoadingMessage(loadingMessages[messageIndex]);
+          messageIndex++;
+        } else {
+          clearInterval(messageInterval);
+        }
+      }, 1500);
+
       const response = await fetch('http://localhost:8000/predict/', {
         method: 'POST',
         body: formData,
       });
 
       console.log("Response status:", response.status);
+      
+      // Clear the intervals regardless of success/failure
+      clearTimeout(timeoutId);
+      clearInterval(messageInterval);
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({
@@ -281,9 +433,16 @@ export default function Dashboard() {
         throw new Error(result.detail || "Prediction failed");
       }
       
+      setLoadingMessage(null);
       setPrediction(result);
+      
+      // Add a message if using fallback prediction
+      if (result.is_fallback) {
+        setError("Note: Using approximate prediction due to model limitations.");
+      }
     } catch (error) {
       console.error("Error predicting disease:", error);
+      setLoadingMessage(null);
       setError(error.message || "Failed to predict disease. Please try again.");
     } finally {
       setIsLoading(false);
@@ -294,6 +453,126 @@ export default function Dashboard() {
     setChatbotOpen(!chatbotOpen);
   };
 
+  const handleClearPrediction = () => {
+    setPrediction(null);
+    setPreviewUrl(null);
+    setSelectedFile(null);
+    setError(null);
+  };
+
+  const handleDownloadReport = () => {
+    if (!prediction) return;
+    
+    // Create report content
+    const plantName = prediction.display_name || prediction.prediction.replace(/_/g, ' ').replace(/___/g, ' - ');
+    const confidence = (prediction.confidence * 100).toFixed(1);
+    const remedy = prediction.remedy || "No specific remedy information available.";
+    const impact = prediction.impact || "This condition may affect crop yield and quality if left untreated.";
+    const prevention = prediction.prevention || "Maintain proper field hygiene and follow recommended crop rotation practices.";
+    
+    const reportDate = new Date().toLocaleDateString();
+    const reportTime = new Date().toLocaleTimeString();
+    
+    const reportContent = `
+AgroBOT Plant Analysis Report
+Generated on: ${reportDate} at ${reportTime}
+
+DIAGNOSIS:
+Plant Condition: ${plantName}
+Confidence Level: ${confidence}%
+${prediction.is_fallback ? 'Note: Using approximate prediction due to model limitations.' : ''}
+
+RECOMMENDED TREATMENT:
+${remedy}
+
+POTENTIAL IMPACT:
+${impact}
+
+PREVENTION TIPS:
+${prevention}
+
+-------------------------------------
+Report generated by AgroBOT AI Assistant
+`;
+
+    // Create blob and download
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Plant_Analysis_${reportDate.replace(/\//g, '-')}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleMoreInfo = () => {
+    // We'll simulate opening the chatbot with a pre-filled query
+    if (prediction) {
+      setChatbotOpen(true);
+      // In a real implementation, you might send this to the chatbot
+      console.log(`User requested more information about: ${prediction.display_name || prediction.prediction}`);
+    }
+  };
+
+  // Improved loading indicator component
+  const LoadingIndicator = () => (
+    <div className={styles.loadingIndicator}>
+      <Loader size={30} className={styles.loadingIcon} />
+      <span>Loading...</span>
+    </div>
+  );
+
+  const [modelStatus, setModelStatus] = useState({
+    checked: false,
+    loaded: false,
+    api_active: false
+  });
+
+  // Add this to the useEffect hook or create a new one
+  useEffect(() => {
+    // Check model status when component mounts
+    const checkStatus = async () => {
+      try {
+        const status = await checkModelStatus();
+        setModelStatus({
+          checked: true,
+          loaded: status.model_loaded,
+          api_active: status.api_status === "active"
+        });
+      } catch (error) {
+        console.error("Failed to check model status:", error);
+        setModelStatus({
+          checked: true,
+          loaded: false,
+          api_active: false
+        });
+      }
+    };
+    
+    checkStatus();
+  }, []);
+
+  // If page is loading, show a loading indicator
+  if (pageLoading) {
+    return (
+      <div className={styles.pageLoadingContainer}>
+        <div className={styles.pageLoadingContent}>
+          <img 
+            src="/AgriLOGO.png" 
+            alt="AgroBOT Logo" 
+            className={styles.loadingLogo} 
+          />
+          <h2 className={styles.loadingText}>Loading AgroBOT Dashboard</h2>
+          <div className={styles.loadingBar}>
+            <div className={styles.loadingProgress}></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className={styles.dashboardContainer}>
       {/* Navigation Bar */}
@@ -354,6 +633,11 @@ export default function Dashboard() {
                   <Image size={20} />
                   <h3>Image Upload</h3>
                 </div>
+                {!modelStatus.loaded && modelStatus.checked && (
+                  <div className={styles.modelWarning}>
+                    <span>AI model in lightweight mode - using fallback predictions</span>
+                  </div>
+                )}
               </div>
               
               <form className={styles.uploadArea}>
@@ -396,14 +680,75 @@ export default function Dashboard() {
                   <div className={styles.errorMessage}>{error}</div>
                 )}
                 
+                {loadingMessage && !error && (
+                  <div className={styles.loadingMessage}>{loadingMessage}</div>
+                )}
+                
                 {prediction && (
                   <div className={styles.predictionResult}>
-                    <div className={styles.predictionTitle}>Plant Analysis Result:</div>
-                    <div className={styles.predictionName}>
-                      {prediction.prediction.replace(/_/g, ' ').replace(/___/g, ' - ')}
-                    </div>
-                    <div className={styles.predictionConfidence}>
-                      Confidence: {(prediction.confidence * 100).toFixed(1)}%
+                    <h3 className={styles.predictionTitle}>Plant Analysis Results</h3>
+                    <div className={styles.predictionContent}>
+                      <div className={styles.diagnosisSection}>
+                        <div className={styles.diagnosisHeader}>
+                          <h4>Diagnosis</h4>
+                          <div className={styles.confidenceBadge}>
+                            Confidence: {(prediction.confidence * 100).toFixed(1)}%
+                          </div>
+                        </div>
+                        <div className={styles.predictionName}>
+                          {prediction.display_name || prediction.prediction.replace(/_/g, ' ').replace(/___/g, ' - ')}
+                        </div>
+                        {prediction.is_fallback && (
+                          <div className={styles.fallbackNote}>
+                            Note: Using approximate prediction due to model limitations.
+                          </div>
+                        )}
+                      </div>
+                      
+                      {prediction.remedy && (
+                        <div className={styles.remedySection}>
+                          <h4>Recommended Treatment</h4>
+                          <div 
+                            className={styles.remedyContent}
+                            dangerouslySetInnerHTML={{ __html: parseMarkdown(prediction.remedy) }}
+                          ></div>
+                        </div>
+                      )}
+                      
+                      <div className={styles.additionalInfoSection}>
+                        <div className={styles.infoCard}>
+                          <h4>Potential Impact</h4>
+                          <p>{prediction.impact || "This condition may affect crop yield and quality if left untreated."}</p>
+                        </div>
+                        <div className={styles.infoCard}>
+                          <h4>Prevention Tips</h4>
+                          <p>{prediction.prevention || "Maintain proper field hygiene and follow recommended crop rotation practices."}</p>
+                        </div>
+                      </div>
+                      
+                      <div className={styles.actionButtons}>
+                        <button 
+                          className={styles.actionButton}
+                          onClick={handleDownloadReport}
+                        >
+                          <span className={styles.actionIcon}>📋</span>
+                          Save Report
+                        </button>
+                        <button 
+                          className={styles.actionButton}
+                          onClick={handleMoreInfo}
+                        >
+                          <span className={styles.actionIcon}>🔍</span>
+                          More Info
+                        </button>
+                        <button 
+                          className={styles.actionButton}
+                          onClick={handleClearPrediction}
+                        >
+                          <span className={styles.actionIcon}>🔄</span>
+                          New Scan
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -679,17 +1024,19 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Modals */}
-      {Object.entries(modalContents).map(([key, { title, content }]) => (
-        <Modal
-          key={key}
-          isOpen={activeModal === key}
-          onClose={() => setActiveModal(null)}
-          title={title}
-        >
-          {content}
-        </Modal>
-      ))}
+      {/* Wrap modals with Suspense for better loading */}
+      <Suspense fallback={<LoadingIndicator />}>
+        {Object.entries(modalContents).map(([key, { title, content }]) => (
+          <Modal
+            key={key}
+            isOpen={activeModal === key}
+            onClose={() => setActiveModal(null)}
+            title={title}
+          >
+            {content}
+          </Modal>
+        ))}
+      </Suspense>
     </div>
   );
 } 

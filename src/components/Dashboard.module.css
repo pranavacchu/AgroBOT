@@ -1,5 +1,5 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* Import Google Fonts with display=swap for faster font loading */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&display=swap');
 
 /* Override global scrollbar settings */
 .content::-webkit-scrollbar {
@@ -31,6 +31,7 @@
 /* Base styles */
 * {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-display: swap;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -57,6 +58,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  will-change: transform;
 }
 
 /* Navigation Bar Styles */
@@ -490,6 +492,7 @@ body {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
+  will-change: transform;
 }
 
 .uploadLabel:hover {
@@ -507,24 +510,63 @@ body {
   padding: 2rem;
   text-align: center;
   gap: 0.75rem;
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.7), rgba(25, 25, 25, 0.6));
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.uploadLabel:hover .uploadPlaceholder {
+  background: linear-gradient(145deg, rgba(20, 20, 20, 0.8), rgba(30, 30, 30, 0.7));
+  color: white;
 }
 
 .uploadPlaceholder svg {
   color: #4caf50;
   opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.3));
+  transition: all 0.3s ease;
+  transform: scale(1.2);
+}
+
+.uploadLabel:hover .uploadPlaceholder svg {
+  opacity: 1;
+  transform: scale(1.3) translateY(-3px);
+  filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.5));
 }
 
 .uploadSubtext {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 0.25rem;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uploadLabel:hover .uploadSubtext {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.2);
 }
 
 .previewImage {
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: contain;
   border-radius: 8px;
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.8), rgba(25, 25, 25, 0.7));
+  padding: 0.5rem;
+  border: 1px dashed rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.uploadLabel:hover .previewImage {
+  transform: scale(1.02);
+  border-color: rgba(76, 175, 80, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(76, 175, 80, 0.2);
 }
 
 .fileName {
@@ -535,6 +577,17 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: center;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.fileName:hover {
+  background: rgba(76, 175, 80, 0.15);
+  color: white;
 }
 
 /* Add pulse animation keyframes */
@@ -569,6 +622,7 @@ body {
   letter-spacing: 0.01em;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   animation: buttonPulse 2s infinite ease-in-out;
+  will-change: transform;
 }
 
 .predictButton:hover {
@@ -602,32 +656,295 @@ body {
   border: 1px solid rgba(255, 82, 82, 0.3);
 }
 
+/* Loading messages should have a different style than errors */
+.loadingMessage {
+  color: #4caf50;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
 .predictionResult {
   margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: rgba(76, 175, 80, 0.1);
-  border: 1px solid rgba(76, 175, 80, 0.3);
+  padding: 0;
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(76, 175, 80, 0.25);
   border-radius: 12px;
-  text-align: center;
+  text-align: left;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(76, 175, 80, 0.15);
+  transition: all 0.3s ease;
+  transform: translateY(0);
+  animation: slideUpFade 0.5s ease;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.predictionResult:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(76, 175, 80, 0.2);
+  transform: translateY(-3px);
 }
 
 .predictionTitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: white;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(to right, rgba(20, 20, 20, 0.95), rgba(30, 30, 30, 0.9));
+  border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.predictionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #4caf50, #8bc34a, #4caf50);
+  background-size: 200% 100%;
+  animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .predictionName {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #4caf50;
+  color: white;
+  margin-bottom: 0.25rem;
   word-wrap: break-word;
+  padding: 0.25rem 0;
+  position: relative;
+  display: inline-block;
 }
 
-.predictionConfidence {
+.predictionName::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.predictionContent {
+  padding: 0;
+}
+
+.diagnosisSection {
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.15);
+}
+
+.diagnosisHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.diagnosisHeader h4 {
+  margin: 0;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.confidenceBadge {
+  background: rgba(76, 175, 80, 0.15);
+  color: rgba(76, 175, 80, 0.9);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(76, 175, 80, 0.25);
+}
+
+.fallbackNote {
+  font-size: 0.8rem;
+  color: rgba(255, 180, 0, 0.9);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.remedySection {
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.15);
+  background: rgba(10, 10, 10, 0.6);
+  border-radius: 0 0 12px 12px;
+}
+
+.remedySection h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remedySection h4::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #4caf50;
+  border-radius: 50%;
+}
+
+.remedyContent {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: pre-line;
+  font-family: 'Inter', sans-serif;
+  background: rgba(25, 25, 25, 0.5);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid rgba(76, 175, 80, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.remedyContent h1,
+.remedyContent h2,
+.remedyContent h3 {
+  color: #4caf50;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.remedyContent ul,
+.remedyContent ol {
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.remedyContent li {
+  margin-bottom: 0.25rem;
+}
+
+.remedyContent strong,
+.remedyContent b {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.remedyContent em,
+.remedyContent i {
+  color: rgba(76, 175, 80, 0.9);
+}
+
+.additionalInfoSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 0 1.25rem 1.25rem;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.15);
+}
+
+.infoCard {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(76, 175, 80, 0.15);
+}
+
+.infoCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(76, 175, 80, 0.3);
+  transform: translateY(-2px);
+}
+
+.infoCard h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(76, 175, 80, 0.9);
+}
+
+.infoCard p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem;
+  gap: 0.75rem;
+}
+
+.actionButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(25, 25, 25, 0.8));
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.actionButton:hover {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: rgba(76, 175, 80, 0.5);
+  transform: translateY(-2px);
+}
+
+.actionIcon {
+  font-size: 1rem;
 }
 
 @media (max-width: 1200px) {
@@ -705,6 +1022,44 @@ body {
   
   .gradientTitle {
     font-size: 2.3rem;
+  }
+
+  .additionalInfoSection {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 1rem;
+  }
+  
+  .actionButtons {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .predictionTitle {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .predictionName {
+    font-size: 1.1rem;
+  }
+  
+  .diagnosisHeader, 
+  .remedySection h4 {
+    font-size: 0.85rem;
+  }
+  
+  .remedyContent, 
+  .infoCard p {
+    font-size: 0.8rem;
+  }
+  
+  .actionButton {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+  
+  .actionIcon {
+    font-size: 0.9rem;
   }
 }
 
@@ -1135,4 +1490,204 @@ body {
   .tableCell {
     font-size: 0.9rem;
   }
+}
+
+/* Solutions modal with image */
+.solutionsModalContent {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.solutionsText {
+  flex: 1;
+  min-width: 0;
+}
+
+.solutionsImageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  max-width: 300px;
+  height: 300px;
+}
+
+.solutionsImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.solutionsImage:hover {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), transparent);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .solutionsModalContent {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .solutionsImageContainer {
+    width: 100%;
+    max-width: 100%;
+    height: 200px;
+    order: -1;
+  }
+}
+
+.resourcesParagraph {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 1rem 0;
+  letter-spacing: 0.01em;
+  text-align: justify;
+  max-width: 100%;
+}
+
+/* Loading animations and indicators */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progressBar {
+  0% {
+    width: 0%;
+  }
+  30% {
+    width: 50%;
+  }
+  60% {
+    width: 75%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.pageLoadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.pageLoadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.loadingLogo {
+  height: 80px;
+  width: auto;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.loadingText {
+  color: white;
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(200, 200, 200, 0.8));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.loadingBar {
+  width: 250px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.loadingProgress {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #8bc34a);
+  border-radius: 10px;
+  animation: progressBar 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  color: white;
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.loadingIcon {
+  animation: rotate 1.5s linear infinite;
+  color: #4caf50;
+}
+
+/* Optimize performance for animations */
+.dashboardContainer {
+  will-change: transform;
+}
+
+/* Add containing box to improve performance */
+.predictionTitle,
+.predictButton,
+.chatbotButton,
+.uploadLabel {
+  will-change: transform;
+}
+
+.modelWarning {
+  background: rgba(255, 180, 0, 0.15);
+  border: 1px solid rgba(255, 180, 0, 0.3);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  color: rgba(255, 180, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.modelWarning span {
+  font-style: italic;
 } 
