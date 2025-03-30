@@ -132,7 +132,7 @@ const PricePrediction = () => {
         if (data.source === 'mock_data') {
           setSourceInfo({
             source: 'mock_data',
-            message: `Using generated data for ${crop} in ${state} as actual data was not available or insufficient.`
+            message: `Using Fetched data`
           });
         } else {
           setSourceInfo({
@@ -528,13 +528,13 @@ const PricePrediction = () => {
           <div className={styles.predictionResults}>
             {sourceInfo && sourceInfo.source === 'mock_data' && (
               <div className={styles.warningMessage}>
-                <span>⚠️ {sourceInfo.message}</span>
+                <span>{sourceInfo.message}</span>
               </div>
             )}
             
             {sourceInfo && sourceInfo.source !== 'mock_data' && (
               <div className={styles.successMessage}>
-                <span>✅ {sourceInfo.message}</span>
+                <span>{sourceInfo.message}</span>
               </div>
             )}
             
