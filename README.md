@@ -88,24 +88,24 @@ npm start
 
 
 
-## Implementation
+### Implementation
 
 https://github.com/user-attachments/assets/511c1f5f-8f22-4934-a719-8034a41ed899
 
-##Home page:
+## Home page:
 ![image](https://github.com/user-attachments/assets/a0f489c8-f109-41aa-92b5-1da2c991c782)
 
-##Dashboard:
+## Dashboard:
 ![image](https://github.com/user-attachments/assets/3aeb3969-ee46-4263-a5b2-3a5afdb45ba4)
 
-##Chatbot:
+## Chatbot:
 ![image](https://github.com/user-attachments/assets/fccb7d04-97fe-4663-8637-c81243cbf7c3)
 
-##Crop Disease Detection:
+## Crop Disease Detection:
 ![image](https://github.com/user-attachments/assets/29ed3cdf-6e7d-4ed2-814e-f88b10df2e53)
 Indicates a failed prediction when images unrelated to plants are uploaded.
 
-##A Multilingual Agricultural Chatbot for Farmers:
+## A Multilingual Agricultural Chatbot for Farmers:
 ![image](https://github.com/user-attachments/assets/44d634ba-ad59-449d-a3fb-c4a3c29725ae)
 
 
