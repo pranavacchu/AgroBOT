@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Container, Row, Col, Form, Button, Spinner, Alert } from 'react-bootstrap';
+import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
+import styles from './Dashboard.module.css';
 
 // Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -20,52 +20,132 @@ const PricePrediction = () => {
   const [production, setProduction] = useState(500000);
   const [area, setArea] = useState(200000);
   const [forecastYears, setForecastYears] = useState(5);
+  const [year, setYear] = useState(new Date().getFullYear() - 1); // Default to previous year
   
   // UI state
   const [loading, setLoading] = useState(false);
+  const [fetchingData, setFetchingData] = useState(false);
   const [error, setError] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [sourceInfo, setSourceInfo] = useState(null);
+  const [fetchSuccess, setFetchSuccess] = useState(false);
   
   // Available crops and states (from crop_yield_price.csv file)
   const crops = ['Arecanut', 'Cardamom', 'Wheat', 'Banana', 'Bajra', 'Rice', 'Cotton', 'Sugarcane', 'Potato', 'Tomato', 'Onion'];
   const states = ['Assam', 'West Bengal', 'Sikkim', 'Gujarat', 'Bihar', 'Karnataka', 'Maharashtra', 'Punjab', 'Tamil Nadu', 'Uttar Pradesh', 'Kerala', 'Andhra Pradesh', 'Haryana', 'Madhya Pradesh'];
   
-  const handleSubmit = async (e) => {
+  // Handle fetch data from web
+  const handleFetchData = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setPrediction(null);
-    setSourceInfo(null);
+    
+    // Validate required fields
+    if (!crop || !state) {
+      setFetchError("Please select a crop and state before fetching data");
+      return;
+    }
+    
+    setFetchingData(true);
+    setFetchError(null);
+    setFetchSuccess(false);
     
     try {
-      // First check for the most recent data year
-      const currentYear = new Date().getFullYear();
-      const response = await axios.post(`${API_BASE_URL}/predict_crop_price`, {
+      const response = await axios.post(`${API_BASE_URL}/fetch_price_data`, {
         crop,
         state,
-        annual_rainfall: parseFloat(annualRainfall),
-        fertilizer: parseFloat(fertilizer),
-        pesticide: parseFloat(pesticide),
-        production: parseFloat(production),
-        area: parseFloat(area),
-        forecast_years: parseInt(forecastYears)
+        year: parseInt(year)
       });
       
       if (response.data.success) {
-        setPrediction(response.data);
-        if (response.data.source) {
+        setFetchSuccess(true);
+        setSourceInfo({
+          source: response.data.source || 'web_api',
+          message: response.data.message || `Successfully fetched data for ${crop} in ${state} for year ${year}`
+        });
+      } else {
+        setFetchError(response.data.error || 'Failed to fetch crop price data');
+      }
+    } catch (err) {
+      console.error('Error fetching crop price data:', err);
+      setFetchError(err.response?.data?.error || err.message || 'An error occurred connecting to the server');
+    } finally {
+      setFetchingData(false);
+    }
+  };
+  
+  // Function to submit the form and get predictions
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!crop || !state) {
+      setError("Please select a crop and state before submitting");
+      return;
+    }
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/predict_crop_price`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          crop,
+          state,
+          forecast_years: parseInt(forecastYears),
+          annual_rainfall: parseFloat(annualRainfall) || 500,
+          fertilizer: parseFloat(fertilizer) || 200,
+          pesticide: parseFloat(pesticide) || 100,
+          production: parseFloat(production) || 1000,
+          area: parseFloat(area) || 500,
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Format data to ensure it's properly displayed
+        const formattedData = {
+          ...data,
+          historical: data.historical.map(item => ({
+            year: item.year,
+            price: parseFloat(item.price)
+          })),
+          forecast: data.forecast.map(item => ({
+            year: item.year,
+            price: parseFloat(item.price)
+          }))
+        };
+        
+        setPrediction(formattedData);
+        
+        // If there are metrics, show them in the message
+        let message = `Successfully predicted prices for ${crop} in ${state}`;
+        if (data.metrics) {
+          const r2 = data.metrics.r2;
+          message += ` (Model quality: ${r2 >= 0.7 ? 'Excellent' : r2 >= 0.5 ? 'Good' : r2 >= 0.3 ? 'Fair' : 'Basic'})`;
+        }
+        
+        // If data source is mock, show a warning but don't treat it as an error
+        if (data.source === 'mock_data') {
           setSourceInfo({
-            source: response.data.source,
-            message: response.data.message || `Data from ${response.data.source}`
+            source: 'mock_data',
+            message: `Using generated data for ${crop} in ${state} as actual data was not available or insufficient.`
+          });
+        } else {
+          setSourceInfo({
+            source: 'SARIMAX model',
+            message
           });
         }
       } else {
-        setError(response.data.error || 'Failed to predict crop prices');
+        setError(data.error || "Failed to get prediction results");
       }
     } catch (err) {
-      console.error('Error predicting crop prices:', err);
-      setError(err.response?.data?.error || err.message || 'An error occurred connecting to the server');
+      console.error("Error submitting prediction:", err);
+      setError("Failed to connect to the server. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -122,13 +202,27 @@ const PricePrediction = () => {
   // Chart options
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          color: 'rgba(255, 255, 255, 0.8)',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 12
+          }
+        }
       },
       title: {
         display: true,
-        text: 'Crop Price Forecast'
+        text: 'Crop Price Forecast',
+        color: 'rgba(255, 255, 255, 0.9)',
+        font: {
+          family: 'Inter, sans-serif',
+          size: 16,
+          weight: 'bold'
+        }
       },
       tooltip: {
         callbacks: {
@@ -142,6 +236,13 @@ const PricePrediction = () => {
             }
             return label;
           }
+        },
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleFont: {
+          family: 'Inter, sans-serif'
+        },
+        bodyFont: {
+          family: 'Inter, sans-serif'
         }
       }
     },
@@ -149,256 +250,398 @@ const PricePrediction = () => {
       y: {
         title: {
           display: true,
-          text: 'Price (₹/quintal)'
+          text: 'Price (₹/quintal)',
+          color: 'rgba(255, 255, 255, 0.7)',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)'
+        },
+        ticks: {
+          color: 'rgba(255, 255, 255, 0.7)',
+          font: {
+            family: 'Inter, sans-serif'
+          }
         }
       },
       x: {
         title: {
           display: true,
-          text: 'Year'
+          text: 'Year',
+          color: 'rgba(255, 255, 255, 0.7)',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 12
+          }
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)'
+        },
+        ticks: {
+          color: 'rgba(255, 255, 255, 0.7)',
+          font: {
+            family: 'Inter, sans-serif'
+          }
         }
       }
     }
   };
   
   return (
-    <Container className="my-4">
-      <h2 className="text-center mb-4">Crop Price Prediction</h2>
-      
-      <Row>
-        <Col md={5}>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <h4 className="card-title mb-3">Input Parameters</h4>
-              
-              <Form onSubmit={handleSubmit}>
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Crop</Form.Label>
-                      <Form.Select 
-                        value={crop} 
-                        onChange={(e) => setCrop(e.target.value)}
-                        required
-                      >
-                        <option value="">Select Crop</option>
-                        {crops.map((c) => (
-                          <option key={c} value={c}>{c}</option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>State</Form.Label>
-                      <Form.Select 
-                        value={state} 
-                        onChange={(e) => setState(e.target.value)}
-                        required
-                      >
-                        <option value="">Select State</option>
-                        {states.map((s) => (
-                          <option key={s} value={s}>{s}</option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                
-                <Form.Group className="mb-3">
-                  <Form.Label>Annual Rainfall (mm)</Form.Label>
-                  <Form.Control 
-                    type="number" 
-                    value={annualRainfall} 
-                    onChange={(e) => setAnnualRainfall(e.target.value)}
-                    required
-                    min="0"
-                  />
-                </Form.Group>
-                
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Fertilizer (kg/hectare)</Form.Label>
-                      <Form.Control 
-                        type="number" 
-                        value={fertilizer} 
-                        onChange={(e) => setFertilizer(e.target.value)}
-                        required
-                        min="0"
-                      />
-                    </Form.Group>
-                  </Col>
-                  
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Pesticide (kg/hectare)</Form.Label>
-                      <Form.Control 
-                        type="number" 
-                        value={pesticide} 
-                        onChange={(e) => setPesticide(e.target.value)}
-                        required
-                        min="0"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Production (tonnes)</Form.Label>
-                      <Form.Control 
-                        type="number" 
-                        value={production} 
-                        onChange={(e) => setProduction(e.target.value)}
-                        required
-                        min="0"
-                      />
-                    </Form.Group>
-                  </Col>
-                  
-                  <Col md={6}>
-                    <Form.Group className="mb-3">
-                      <Form.Label>Area (hectares)</Form.Label>
-                      <Form.Control 
-                        type="number" 
-                        value={area} 
-                        onChange={(e) => setArea(e.target.value)}
-                        required
-                        min="0"
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                
-                <Form.Group className="mb-3">
-                  <Form.Label>Forecast Years</Form.Label>
-                  <Form.Control 
-                    type="number" 
-                    value={forecastYears} 
-                    onChange={(e) => setForecastYears(e.target.value)}
-                    required
-                    min="1"
-                    max="10"
-                  />
-                </Form.Group>
-                
-                <Button 
-                  variant="primary" 
-                  type="submit" 
-                  className="w-100 mt-2"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                      <span className="ms-2">Predicting...</span>
-                    </>
-                  ) : 'Predict Prices'}
-                </Button>
-              </Form>
-              
-              {sourceInfo && (
-                <Alert variant="info" className="mt-3 small">
-                  <strong>Data Source:</strong> {sourceInfo.message}
-                </Alert>
-              )}
-              
-              {prediction && prediction.model_info && (
-                <div className="mt-3 small text-muted">
-                  <strong>Model Info:</strong> {prediction.model_info.order}
-                  {prediction.model_info.aic && (
-                    <span>, AIC: {prediction.model_info.aic.toFixed(2)}</span>
-                  )}
-                </div>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
+    <div>
+      <div className={styles.yieldForm}>
+        <h4 style={{ 
+          fontSize: '0.95rem', 
+          color: 'rgba(255,255,255,0.9)', 
+          marginBottom: '0.75rem',
+          background: 'linear-gradient(to right, #4caf50, #8bc34a)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent',
+          display: 'inline-block'
+        }}>
+          Fetch Market Data
+        </h4>
         
-        <Col md={7}>
-          <Card className="shadow-sm h-100">
-            <Card.Body>
-              <h4 className="card-title mb-3">Price Forecast Results</h4>
+        <form onSubmit={handleFetchData}>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="crop">Crop *</label>
+              <select 
+                id="crop" 
+                className={styles.formSelect}
+                value={crop} 
+                onChange={(e) => setCrop(e.target.value)}
+                required
+              >
+                <option value="">Select Crop</option>
+                {crops.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="state">State *</label>
+              <select 
+                id="state" 
+                className={styles.formSelect}
+                value={state} 
+                onChange={(e) => setState(e.target.value)}
+                required
+              >
+                <option value="">Select State</option>
+                {states.map((s) => (
+                  <option key={s} value={s}>{s}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="year">Year</label>
+              <input 
+                type="number" 
+                id="year"
+                className={styles.formInput}
+                value={year} 
+                onChange={(e) => setYear(e.target.value)}
+                min="1990"
+                max={new Date().getFullYear()}
+              />
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            className={styles.predictButton}
+            disabled={fetchingData}
+            style={{
+              background: 'linear-gradient(145deg, rgba(45, 135, 45, 0.9), rgba(40, 120, 40, 0.8))',
+              marginTop: '0.75rem'
+            }}
+          >
+            {fetchingData ? 'Fetching Data...' : 'Fetch Market Data'}
+          </button>
+        </form>
+        
+        {fetchError && (
+          <div style={{ 
+            color: '#ff6b6b', 
+            marginTop: '0.75rem', 
+            padding: '0.5rem', 
+            backgroundColor: 'rgba(255, 107, 107, 0.1)', 
+            borderRadius: '8px',
+            fontSize: '0.85rem' 
+          }}>
+            {fetchError}
+          </div>
+        )}
+        
+        {fetchSuccess && (
+          <div style={{ 
+            color: '#4caf50', 
+            marginTop: '0.75rem', 
+            padding: '0.5rem', 
+            backgroundColor: 'rgba(76, 175, 80, 0.1)', 
+            borderRadius: '8px',
+            fontSize: '0.85rem' 
+          }}>
+            {sourceInfo?.message || 'Data fetched successfully!'}
+          </div>
+        )}
+        
+        <h4 style={{ 
+          fontSize: '0.95rem', 
+          color: 'rgba(255,255,255,0.9)', 
+          margin: '1.25rem 0 0.75rem 0',
+          background: 'linear-gradient(to right, #4caf50, #8bc34a)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent',
+          display: 'inline-block'
+        }}>
+          Prediction Parameters
+        </h4>
+        
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="annual_rainfall">Annual Rainfall (mm)</label>
+              <input 
+                type="number" 
+                id="annual_rainfall"
+                className={styles.formInput}
+                value={annualRainfall} 
+                onChange={(e) => setAnnualRainfall(e.target.value)}
+                min="0"
+                step="0.01"
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="fertilizer">Fertilizer (kg/ha)</label>
+              <input 
+                type="number" 
+                id="fertilizer"
+                className={styles.formInput}
+                value={fertilizer} 
+                onChange={(e) => setFertilizer(e.target.value)}
+                min="0"
+                step="0.01"
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="pesticide">Pesticide (kg/ha)</label>
+              <input 
+                type="number" 
+                id="pesticide"
+                className={styles.formInput}
+                value={pesticide} 
+                onChange={(e) => setPesticide(e.target.value)}
+                min="0"
+                step="0.01"
+              />
+            </div>
+          </div>
+          
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="production">Production (tonnes)</label>
+              <input 
+                type="number" 
+                id="production"
+                className={styles.formInput}
+                value={production} 
+                onChange={(e) => setProduction(e.target.value)}
+                min="0"
+                step="0.01"
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="area">Area (hectares)</label>
+              <input 
+                type="number" 
+                id="area"
+                className={styles.formInput}
+                value={area} 
+                onChange={(e) => setArea(e.target.value)}
+                min="0"
+                step="0.01"
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <label htmlFor="forecast_years">Forecast Years</label>
+              <input 
+                type="number" 
+                id="forecast_years"
+                className={styles.formInput}
+                value={forecastYears} 
+                onChange={(e) => setForecastYears(e.target.value)}
+                min="1"
+                max="10"
+              />
+            </div>
+          </div>
+          
+          <button 
+            type="submit" 
+            className={styles.predictButton}
+            disabled={loading}
+          >
+            {loading ? 'Processing...' : 'Predict Prices'}
+          </button>
+        </form>
+        
+        {error && (
+          <div style={{ 
+            color: '#ff6b6b', 
+            marginTop: '0.75rem', 
+            padding: '0.5rem', 
+            backgroundColor: 'rgba(255, 107, 107, 0.1)', 
+            borderRadius: '8px',
+            fontSize: '0.85rem' 
+          }}>
+            {error}
+          </div>
+        )}
+        
+        {sourceInfo && !error && !fetchError && (
+          <div style={{ 
+            color: '#4caf50', 
+            marginTop: '0.75rem', 
+            padding: '0.5rem', 
+            backgroundColor: 'rgba(76, 175, 80, 0.1)', 
+            borderRadius: '8px',
+            fontSize: '0.85rem' 
+          }}>
+            {sourceInfo.message}
+          </div>
+        )}
+
+        {prediction && (
+          <div className={styles.predictionResults}>
+            {sourceInfo && sourceInfo.source === 'mock_data' && (
+              <div className={styles.warningMessage}>
+                <span>⚠️ {sourceInfo.message}</span>
+              </div>
+            )}
+            
+            {sourceInfo && sourceInfo.source !== 'mock_data' && (
+              <div className={styles.successMessage}>
+                <span>✅ {sourceInfo.message}</span>
+              </div>
+            )}
+            
+            <h4 className={styles.resultsTitle}>
+              Price Predictions for {prediction.crop} in {prediction.state}
+            </h4>
+            
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                padding: '0.5rem',
+                background: 'rgba(76, 175, 80, 0.08)',
+                borderRadius: '8px',
+                marginBottom: '0.5rem'
+              }}>
+                <span>Latest Price:</span>
+                <span style={{ fontWeight: 'bold' }}>
+                  ₹{prediction.historical[prediction.historical.length - 1].price.toFixed(2)}/quintal
+                </span>
+              </div>
               
-              {error && (
-                <Alert variant="danger">{error}</Alert>
-              )}
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between',
+                padding: '0.5rem',
+                background: trend?.isIncrease ? 'rgba(76, 175, 80, 0.08)' : 'rgba(255, 99, 132, 0.08)',
+                borderRadius: '8px'
+              }}>
+                <span>Forecasted Price ({prediction.forecast[prediction.forecast.length - 1].year}):</span>
+                <span style={{ 
+                  fontWeight: 'bold',
+                  color: trend?.isIncrease ? '#4caf50' : '#ff6b6b'
+                }}>
+                  ₹{prediction.forecast[prediction.forecast.length - 1].price.toFixed(2)}/quintal
+                  {trend && (
+                    <span style={{ fontSize: '0.8rem', marginLeft: '0.4rem' }}>
+                      ({trend.isIncrease ? '+' : '-'}{trend.percentage.toFixed(1)}%)
+                    </span>
+                  )}
+                </span>
+              </div>
+            </div>
+            
+            <div style={{ height: '250px', marginBottom: '1rem' }}>
+              <Line data={chartData} options={chartOptions} />
+            </div>
+            
+            <div className={styles.resultsTable}>
+              <div className={styles.tableHeader}>
+                <div className={styles.tableCell}>Year</div>
+                <div className={styles.tableCell}>Price (₹/quintal)</div>
+                <div className={styles.tableCell}>Type</div>
+              </div>
               
-              {loading && (
-                <div className="text-center my-5">
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                  <p className="mt-3">Analyzing historical data and generating forecast...</p>
+              {prediction.historical.map(pred => (
+                <div key={`hist-${pred.year}`} className={styles.tableRow}>
+                  <div className={styles.tableCell}>{pred.year}</div>
+                  <div className={styles.tableCell}>{pred.price.toFixed(2)}</div>
+                  <div className={styles.tableCell} style={{ color: '#75c9fb' }}>Historical</div>
                 </div>
-              )}
+              ))}
               
-              {!loading && !error && prediction && (
-                <>
-                  <div className="mb-4">
-                    <Alert variant="success">
-                      <strong>Crop:</strong> {prediction.crop.charAt(0).toUpperCase() + prediction.crop.slice(1)}<br />
-                      <strong>State:</strong> {prediction.state.charAt(0).toUpperCase() + prediction.state.slice(1)}<br />
-                      <strong>Latest Price:</strong> ₹{prediction.historical[prediction.historical.length - 1].price.toFixed(2)} per quintal<br />
-                      <strong>Forecasted Price ({prediction.forecast[prediction.forecast.length - 1].year}):</strong> 
-                      ₹{prediction.forecast[prediction.forecast.length - 1].price.toFixed(2)} per quintal
-                    </Alert>
-                  </div>
-                  
-                  <div style={{ height: '350px' }}>
-                    <Line data={chartData} options={chartOptions} />
-                  </div>
-                  
-                  <div className="mt-4">
-                    <h5>Price Trend Analysis</h5>
-                    {trend && (
-                      <p>
-                        The price of {prediction.crop} in {prediction.state} is projected to 
-                        <strong className={trend.isIncrease ? 'text-success' : 'text-danger'}>
-                          {' '}{trend.isIncrease ? 'increase' : 'decrease'} by ₹{trend.change.toFixed(2)}{' '}
-                        </strong> 
-                        ({trend.percentage.toFixed(2)}%) over the next {forecastYears} years.
-                        {trend.isIncrease ? (
-                          <span> This could be favorable for farmers planning to invest in {prediction.crop} cultivation.</span>
-                        ) : (
-                          <span> Farmers may want to consider diversification or value-addition strategies.</span>
-                        )}
-                      </p>
-                    )}
-                    
-                    <div className="mt-3">
-                      <h6>Factors Affecting Prices:</h6>
-                      <ul className="small">
-                        <li>Production levels and yield rates</li>
-                        <li>Seasonal demand variations</li>
-                        <li>Input costs (fertilizers, pesticides, labor)</li>
-                        <li>Weather conditions and climate patterns</li>
-                        <li>Government policies and market interventions</li>
-                      </ul>
-                    </div>
-                  </div>
-                </>
-              )}
-              
-              {!loading && !error && !prediction && (
-                <div className="text-center my-5">
-                  <p>Enter parameters and click "Predict Prices" to see price forecast.</p>
+              {prediction.forecast.map(pred => (
+                <div key={`fore-${pred.year}`} className={styles.tableRow}>
+                  <div className={styles.tableCell}>{pred.year}</div>
+                  <div className={styles.tableCell}>{pred.price.toFixed(2)}</div>
+                  <div className={styles.tableCell} style={{ color: '#ff9480' }}>Forecast</div>
                 </div>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+              ))}
+            </div>
+
+            {prediction.metrics && prediction.metrics.rmse && (
+              <div style={{
+                marginTop: '1rem',
+                padding: '0.75rem',
+                background: 'rgba(30, 30, 30, 0.5)',
+                borderRadius: '8px',
+                fontSize: '0.9rem'
+              }}>
+                <h4 style={{
+                  margin: '0 0 0.5rem 0',
+                  fontSize: '0.95rem',
+                  fontWeight: 'bold'
+                }}>Model Metrics</h4>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
+                  <span>RMSE (Root Mean Squared Error):</span>
+                  <span>{prediction.metrics.rmse.toFixed(2)}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>R² (Coefficient of Determination):</span>
+                  <span>{prediction.metrics.r2.toFixed(2)}</span>
+                </div>
+                <div style={{ 
+                  marginTop: '0.5rem',
+                  fontSize: '0.8rem',
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontStyle: 'italic'
+                }}>
+                  * R² ranges from 0 to 1, with higher values indicating better model fit.
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

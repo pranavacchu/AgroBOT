@@ -1690,4 +1690,23 @@ body {
 
 .modelWarning span {
   font-style: italic;
+}
+
+/* Price Prediction specific styles */
+.pricePredictionSection .warningMessage {
+  background-color: rgba(255, 217, 0, 0.1);
+  border-left: 4px solid #ffd900;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  color: #856404;
+  border-radius: 4px;
+}
+
+.pricePredictionSection .successMessage {
+  background-color: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  color: #155724;
+  border-radius: 4px;
 } 
