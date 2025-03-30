@@ -1,0 +1,36 @@
+# Python dependencies for my-react-app project
+fastapi==0.104.1
+uvicorn==0.23.2
+numpy==1.24.3
+pandas==2.0.3
+pillow==10.0.1
+statsmodels==0.14.0
+scikit-learn==1.3.0
+tensorflow==2.13.0
+opencv-python==4.8.0
+google-generativeai==0.3.1
+pydantic==2.4.2
+python-multipart==0.0.6
+matplotlib==3.7.2
+seaborn==0.12.2
+requests==2.31.0
+scipy==1.11.3
+
+# JavaScript/React dependencies (install with npm install)
+# react==19.0.0
+# react-dom==19.0.0
+# bootstrap==5.3.3
+# react-bootstrap==2.10.9
+# chart.js==4.4.8
+# react-chartjs-2==5.3.0
+# react-icons==5.5.0
+# react-transition-group==4.4.5
+# @eslint/js==9.21.0
+# @types/react==19.0.10
+# @types/react-dom==19.0.4
+# @vitejs/plugin-react==4.3.4
+# eslint==9.21.0
+# eslint-plugin-react-hooks==5.1.0
+# eslint-plugin-react-refresh==0.4.19
+# globals==15.15.0
+# vite==6.2.0 
