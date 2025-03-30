@@ -1036,6 +1036,81 @@ def mock_price_prediction(request):
 async def root():
     return {"message": "AgroBOT API is running"}
 
+# Add this function to validate if the image contains a plant
+def validate_plant_image(img_array):
+    """
+    Determines if the input image likely contains a plant using color analysis
+    and other computer vision techniques.
+    
+    Returns: (is_plant, confidence)
+    """
+    try:
+        # Convert the image array to an OpenCV-compatible format
+        img = (img_array[0] * 255).astype(np.uint8)
+        
+        # Convert to HSV space for better color segmentation
+        hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+        
+        # Define green color range (plant-like colors)
+        # Broader range to catch most plant colors
+        light_green_lower = np.array([25, 20, 20])
+        light_green_upper = np.array([90, 255, 255])
+        
+        # Create mask for green pixels
+        green_mask = cv2.inRange(hsv, light_green_lower, light_green_upper)
+        
+        # Calculate percentage of green pixels
+        total_pixels = img.shape[0] * img.shape[1]
+        green_pixel_count = cv2.countNonZero(green_mask)
+        green_percentage = green_pixel_count / total_pixels
+        
+        # Check texture patterns typical of plants (edges and patterns)
+        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        edges = cv2.Canny(blurred, 50, 150)
+        edge_pixel_count = cv2.countNonZero(edges)
+        edge_density = edge_pixel_count / total_pixels
+        
+        # Extract color histogram in HSV space
+        h_hist = cv2.calcHist([hsv], [0], None, [30], [0, 180])
+        s_hist = cv2.calcHist([hsv], [1], None, [32], [0, 256])
+        
+        # Normalize histograms
+        h_hist = cv2.normalize(h_hist, h_hist, 0, 1, cv2.NORM_MINMAX).flatten()
+        s_hist = cv2.normalize(s_hist, s_hist, 0, 1, cv2.NORM_MINMAX).flatten()
+        
+        # Plant detection score based on multiple factors
+        # 1. Green pixel percentage
+        # 2. Edge patterns that suggest leaf structures
+        # 3. Color distribution in typical plant ranges
+        
+        # Basic scoring
+        is_plant = False
+        confidence = 0.0
+        
+        # Main heuristic: image should have significant green content
+        if green_percentage >= 0.15:  # At least 15% of the image should be green
+            plant_score = green_percentage * 0.7 + min(edge_density * 10, 0.3)
+            
+            # Check hue distribution - plants usually have a peak in the green range
+            green_hue_score = sum(h_hist[8:18]) / sum(h_hist) if sum(h_hist) > 0 else 0
+            
+            # Calculate final score with weights
+            confidence = 0.6 * plant_score + 0.4 * green_hue_score
+            
+            # Image is classified as a plant if confidence exceeds threshold
+            is_plant = confidence > 0.3
+            
+            print(f"Plant validation - Green: {green_percentage:.2f}, Edge: {edge_density:.2f}, Score: {confidence:.2f}")
+        else:
+            print(f"Plant validation failed - insufficient green content: {green_percentage:.2f}")
+        
+        return is_plant, confidence
+    
+    except Exception as e:
+        print(f"Error in plant validation: {e}")
+        return False, 0.0
+
 @app.post("/predict/")
 async def predict_disease(file: UploadFile = File(...)):
     if not file:
@@ -1057,6 +1132,23 @@ async def predict_disease(file: UploadFile = File(...)):
         img_array, img = preprocess_image(contents)
         if img_array is None:
             raise HTTPException(status_code=400, detail="Failed to process image")
+        
+        # Validate if the image contains a plant
+        is_plant, plant_confidence = validate_plant_image(img_array)
+        
+        if not is_plant:
+            # Return a specific response for non-plant images
+            return {
+                "success": False,
+                "prediction": "not_a_plant",
+                "display_name": "Not a plant, please enter valid image",
+                "confidence": float(1.0 - plant_confidence),  # Confidence that it's NOT a plant
+                "is_fallback": False,
+                "remedy": "Please upload an image of a plant leaf for disease detection.",
+                "impact": "The system cannot analyze non-plant images.",
+                "prevention": "Try uploading a clear image of a plant leaf.",
+                "filename": file.filename
+            }
         
         # Make prediction with proper error handling
         result = None
