@@ -71,18 +71,17 @@ pip install -r requirements.txt
 
 3. Setup frontend:
 ```bash
-cd frontend
 npm install
 ```
 
 ### Running the Application
 - Backend:
 ```bash
-uvicorn main:app --reload
+python main.py
 ```
 - Frontend:
 ```bash
-npm start
+npm run dev
 ```
 
 
